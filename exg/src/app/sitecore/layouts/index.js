@@ -7,6 +7,7 @@ import ScGlobalLogo from './ScGlobalLogo';
 import ScActionBar from './ScActionBar';
 import ScNavigationContainer from './ScNavigationContainer';
 import ScAccountInformation from './ScAccountInformation';
+import ScProgresssIndicator from './ScProgresssIndicator';
 
 export {ScButton};
 export {ScText};
@@ -17,6 +18,7 @@ export {ScGlobalLogo};
 export {ScActionBar};
 export {ScNavigationContainer};
 export {ScAccountInformation}
+export {ScProgresssIndicator}
 
 export default {
     ScButton,
@@ -27,5 +29,6 @@ export default {
     ScGlobalLogo,
     ScActionBar,
     ScNavigationContainer,
-    ScAccountInformation
+    ScAccountInformation,
+    ScProgresssIndicator
 }
