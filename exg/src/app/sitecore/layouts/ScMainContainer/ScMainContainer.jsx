@@ -25,7 +25,7 @@ class ScMainContainer extends Component {
         
         if( noMenu ) {
             styles = Object.assign({
-                paddingLeft: '0'
+                paddingLeft: 0
             }, style);
         }
         
