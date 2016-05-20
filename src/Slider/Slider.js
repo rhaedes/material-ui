@@ -50,8 +50,8 @@ const getStyles = (props, context, state) => {
       cursor: 'default',
       height: slider.handleSizeActive,
       position: 'relative',
-      marginTop: 24,
-      marginBottom: 48,
+      marginTop: 0,
+      marginBottom: 0,
     },
     track: {
       position: 'absolute',
