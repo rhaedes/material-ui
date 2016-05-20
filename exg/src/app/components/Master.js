@@ -37,12 +37,41 @@ class Master extends Component {
   }
   
   onActive(tab) {
-    window.location.hash = tab.props.route;
+    const value = tab.props.value;
+
+    this.context.router.push(value);
   }
   
-  render() {    
+  render() {
+    let {
+      children,
+      location: {
+        pathname
+      },
+      ...other
+    } = this.props;
+    
+    const tabArray = [
+      'Overview',
+      'Channels',
+      'Landing pages',
+      'Ref Urls',
+      'Search',
+      'Outcomes',
+      'Campaigns'
+    ]
+    
+    const tabs = tabArray.map((name, index) => {
+      const value = '/' + name.toLowerCase().replace(/ /g,'');
+      
+      return (
+        <Tab label={name} key={index} value={value} onActive={this.onActive.bind(this)} />
+      );
+    });
+        
     return (
       <div>
+        <Title render="Sitecore-UI" />
          <ScGlobalHeader>
                 <ScGlobalLogo></ScGlobalLogo>
                 <ScAccountInformation username="Administrator"></ScAccountInformation>
@@ -50,18 +79,11 @@ class Master extends Component {
         <ScMainContainer noMenu={true}>
           <ScApplicationHeader title="Experience Generator"></ScApplicationHeader>
           <div style={{padding:'30px 15px'}}>
-            <Title render="Sitecore-UI" />
-            <Tabs>
-              <Tab label="Overview" route="/overview" onActive={this.onActive} />
-              <Tab label="Channels" route="/channels" onActive={this.onActive} />
-              <Tab label="Landing pages" route="/landingpages" onActive={this.onActive} />
-              <Tab label="Ref Urls" route="/refurls" onActive={this.onActive} />
-              <Tab label="Search" route="/search" onActive={this.onActive} />
-              <Tab label="Outcomes" route="/outcomes" onActive={this.onActive} />
-              <Tab label="Campaigns" route="/campaigns" onActive={this.onActive} />
+            <Tabs value={pathname}>
+              {tabs}
             </Tabs>
             <div>
-              {this.props.children}
+              {children}
             </div>
           </div>
         </ScMainContainer>
