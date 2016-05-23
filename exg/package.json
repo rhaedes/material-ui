@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "react-css-modules": "^3.7.6",
+    "react-nvd3": "^0.5.7",
     "react-title-component": "^1.0.1",
     "simple-assign": "^0.1.0"
   },
