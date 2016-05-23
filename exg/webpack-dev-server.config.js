@@ -6,8 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = {
   // Entry point to the project
   entry: [
-    'webpack/hot/dev-server',
-    'webpack/hot/only-dev-server',
+    // Hot-reload-entry added in server.js
     path.join(__dirname, '/src/app/app.js'),
   ],
   // Webpack config options on how to obtain modules
@@ -18,14 +17,6 @@ const config = {
       // material-ui requires will be searched in src folder, not in node_modules
       'material-ui': path.resolve(__dirname, '../src')
     },
-  },
-  // Configuration for dev server
-  devServer: {
-    contentBase: 'src/www',
-    devtool: 'eval',
-    hot: true,
-    inline: true,
-    port: 4000,
   },
   devtool: 'eval',
   // Output file config
