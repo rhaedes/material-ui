@@ -58,7 +58,8 @@ class Master extends Component {
       'Ref Urls',
       'Search',
       'Outcomes',
-      'Campaigns'
+      'Campaigns',
+      'Dashboard'
     ]
     
     const tabs = tabArray.map((name, index) => {

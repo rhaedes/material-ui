@@ -14,6 +14,7 @@ import RefUrls from './components/pages/RefUrls';
 import Search from './components/pages/Search';
 import Outcomes from './components/pages/Outcomes';
 import Campaigns from './components/pages/Campaigns';
+import Dashboard from './components/pages/Dashboard';
 
 
 /**
@@ -35,6 +36,7 @@ const AppRoutes = (
     <Route path="search" component={Search} />
     <Route path="outcomes" component={Outcomes} />
     <Route path="campaigns" component={Campaigns} />
+    <Route path="dashboard" component={Dashboard} />
   </Route>
 );
 
