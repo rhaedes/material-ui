@@ -8,6 +8,10 @@ import Overlay from '../internal/Overlay';
 import Paper from '../Paper';
 import propTypes from '../utils/propTypes';
 
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
+import ContentClear from 'material-ui/svg-icons/content/clear';
+
 let openNavEventHandler = null;
 
 class Drawer extends Component {
@@ -82,9 +86,12 @@ class Drawer extends Component {
      * The zDepth of the `Drawer`.
      */
     zDepth: propTypes.zDepth,
-    
-    headerTitle: PropTypes.string,
 
+    headerTitle: PropTypes.string,
+    
+    hideFooter: PropTypes.bool,
+    
+    hideHeader: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -95,6 +102,8 @@ class Drawer extends Component {
     swipeAreaWidth: 30,
     width: null,
     zDepth: 2,
+    hideFooter: false,
+    hideHeader: false,
   };
 
   static contextTypes = {
@@ -152,7 +161,7 @@ class Drawer extends Component {
         position: 'fixed',
         zIndex: muiTheme.zIndex.navDrawer,
         left: 0,
-        top: 0,
+        top: 0,        
         transform: `translate3d(${x}px, 0, 0)`,
         transition: !this.state.swiping && transitions.easeOut(null, 'transform', null),
         backgroundColor: theme.color,
@@ -167,6 +176,10 @@ class Drawer extends Component {
         left: 'auto',
         right: 0,
       },
+      iconButton: {
+       hoverColor: muiTheme.palette.iconButtonHoverColor,
+       color: muiTheme.palette.iconButtonColor,
+      }
     };
 
     return styles;
@@ -340,6 +353,10 @@ class Drawer extends Component {
     document.body.removeEventListener('touchcancel', this.onBodyTouchEnd);
   };
 
+  closeButtonHandler = (event) => {
+    this.close('escape');
+  }
+
   render() {
     const {
       children,
@@ -361,7 +378,7 @@ class Drawer extends Component {
       height: '100%',
       position: 'relative'
     }
-    
+
     const headerStyle = {
       position: 'relative',
       paddingRight: '40px',
@@ -370,10 +387,11 @@ class Drawer extends Component {
       lineHeight: '60px',
       color: '#2b2b2b',
       backgroundColor: '#ffffff',
+      fontSize: '18px',
     }
 
-    const footerStyle = {
-      position: 'absolute',
+    const footerStyle = {    
+      position:'absolute',  
       bottom: 0,
       height: '60px',
       lineHeight: '60px',
@@ -384,9 +402,32 @@ class Drawer extends Component {
       border: '1px solid #cccccc',
       borderLeft: 0,
       borderRight: 0,
-      backgroundColor: '#e3e3e3',
+      backgroundColor: '#e3e3e3',    
     }
-
+    
+    const contentWrapperStyle= {
+       position: 'absolute',
+       top: this.props.hideHeader ? 0 : '60px',
+       bottom: this.props.hideFooter ? 0 : '60px',  
+       right: 0,
+       left: 0,     
+       overflowY: 'auto',
+       overflowX: 'hidden',
+    }
+    
+    const closeButtonStyle = {
+      position: 'absolute',
+      border: 0,
+      height: '24px',
+      width: '24px',      
+      right: '21px',
+      top: '18px',
+      opacity: '1',
+      cursor: 'pointer',
+      WebkitAppearance: 'none',
+      padding: '0 12px',
+    }
+        
     let overlay;
     if (!docked) {
       overlay = (
@@ -401,13 +442,28 @@ class Drawer extends Component {
       );
     }
 
+    const closeButton =  (!this.props.hideHeader && !this.props.docked) ? (
+      <IconButton onClick={this.closeButtonHandler} style={closeButtonStyle}  tooltip="Close">
+        <ContentClear color={styles.iconButton.color} hoverColor={styles.iconButton.hoverColor}/>
+      </IconButton >
+    ) : null;
+
+   const footer = !this.props.hideFooter ? (
+      <div style={footerStyle}></div>                
+   )
+   : null;
+   
+   const header = !this.props.hideHeader ? (
+      <div style={headerStyle}>{this.props.headerTitle}</div>      
+   )
+   : null;
+    
     return (
       <div
         className={className}
         style={style}
         >
         <div style={wrapperStyle}>
-          
           <EventListener elementName="window" onKeyUp={this.handleKeyUp} />
           {overlay}
           <Paper
@@ -417,10 +473,13 @@ class Drawer extends Component {
             transitionEnabled={!this.state.swiping}
             className={containerClassName}
             style={Object.assign(styles.root, openSecondary && styles.rootWhenOpenRight, containerStyle) }>
-            <div style={headerStyle}>{this.props.headerTitle}</div>
-            {children}
-            <div style={footerStyle}></div>  
-          </Paper>                    
+             {header}  
+             {closeButton}      
+            <div style={contentWrapperStyle}>
+              {children}
+            </div>
+            {footer}    
+          </Paper>           
         </div>
       </div>
     );
