@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
-import Panel from '../../../components/pages/internal/Panel.js';
+import Panel from './Panel.js';
 import CampaignItem from './CampaignItem';
 
 const CampaignTraffic = (props) => {

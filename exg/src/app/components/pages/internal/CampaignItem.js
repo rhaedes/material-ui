@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'material-ui/Slider';
-import PanelRow from '../../../components/pages/internal/PanelRow.js';
-import PanelCell from '../../../components/pages/internal/PanelCell.js';
+import PanelRow from './PanelRow.js';
+import PanelCell from './PanelCell.js';
 
 class CampaignItem extends Component {
     constructor(props) {
