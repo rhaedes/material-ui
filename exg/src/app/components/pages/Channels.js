@@ -70,7 +70,7 @@ class Page extends Component {
   onSliderChange(evt, value) {
     console.log(value);
   }
-  
+
   render() {
     const rowStyle = { borderBottom: '1px solid #000', padding: '15px 0', margin: '0 15px' }
 
@@ -84,20 +84,20 @@ class Page extends Component {
             </PanelCell>
           </PanelRow>
         </Panel>
-        <Panel header="Channels" style={{paddingBottom: '15px'}}>
+        <Panel header="Channels" style={{ paddingBottom: '15px' }}>
           {data.map((row, index, list) => {
-            var prev = list[index-1];
-            var showCategory = row.category !== (prev && prev.category);
+            let prev = list[index - 1];
+            let showCategory = row.category !== (prev && prev.category);
             const categoryStyle = { fontWeight: 'bold', visibility: showCategory ? '' : 'hidden' };
-            
+
             return (
               <PanelRow key={index} style={rowStyle}>
                 <PanelCell colClass="s2" style={categoryStyle}>{row.category}</PanelCell>
                 <PanelCell colClass="s8">{row.label}</PanelCell>
-                <PanelCell colClass="s2"><Slider defaultValue={row.value} onChange={this.onSliderChange.bind(this)}></Slider></PanelCell>
+                <PanelCell colClass="s2"><Slider defaultValue={row.value} onChange={this.onSliderChange.bind(this) }></Slider></PanelCell>
               </PanelRow>
             );
-          })}
+          }) }
         </Panel>
       </div>
     );
