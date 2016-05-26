@@ -94,7 +94,10 @@ class Page extends Component {
               showDialog: { margin: 15 },
               ok: { marginRight: 15 }
           },
-          divider: { marginTop: 0, marginBottom: 0 }  
+          divider: { marginTop: 0, marginBottom: 0 },
+          text: { padding: 15 },
+          cell: { marginTop: 10 },
+          buttonCell: { textAlign: 'right' }
         };
         
         const actions = [
@@ -109,9 +112,9 @@ class Page extends Component {
                         <Divider style={styles.divider} />
                     }
                     <PanelRow>
-                        <PanelCell colClass="s7" style={{ marginTop: 10 }}>{item.label}</PanelCell>
-                        <PanelCell colClass="s3" style={{ marginTop: 10 }}><Slider value={item.sliderValue} /></PanelCell>
-                        <PanelCell colClass="s2" style={{ textAlign: 'right' }}><RaisedButton label="Delete" onClick={this.deleteLandingPage.bind(this, item)} /></PanelCell>
+                        <PanelCell colClass="s7" style={styles.cell}>{item.label}</PanelCell>
+                        <PanelCell colClass="s3" style={styles.cell}><Slider value={item.sliderValue} /></PanelCell>
+                        <PanelCell colClass="s2" style={styles.buttonCell}><RaisedButton label="Delete" onClick={this.deleteLandingPage.bind(this, item)} /></PanelCell>
                     </PanelRow>                    
                 </div>
             );
@@ -127,7 +130,7 @@ class Page extends Component {
                 </Panel>
                 <Panel header="Landing pages">
                     {!landingPages.length &&
-                        <div style={{ padding: 15 }}>You need to select atleast one landing page.</div>
+                        <div style={styles.text}>You need to select atleast one landing page.</div>
                     }
                     {landingPages}
                 </Panel>

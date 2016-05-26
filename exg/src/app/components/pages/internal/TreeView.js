@@ -5,7 +5,9 @@ import { Checkbox } from 'material-ui';
 
 class TreeView extends Component {
     static propTypes = {
-        checkedItems: React.PropTypes.array
+        checkedItems: React.PropTypes.array,
+        data: React.PropTypes.object.isRequired,
+        onChangeCheckedItems: React.PropTypes.func.isRequired
     }
     
     static defaultProps = {
@@ -15,7 +17,21 @@ class TreeView extends Component {
     constructor(props) {
         super(props);
         
+        this.state = {
+            collapsedItems: []
+        }
+        
         this.createTreeList = this.createTreeList.bind(this);
+    }
+    onChevronClick(item, isOpen) {
+        if(this.state.collapsedItems.indexOf(item) === -1) {
+            this.setState({ collapsedItems: [item, ...this.state.collapsedItems]});
+        } else {
+            const collapsedItems = [...this.state.collapsedItems];
+            collapsedItems.splice(collapsedItems.indexOf(item), 1);
+            
+            this.setState({ collapsedItems });
+        }
     }
     onCheck(item, checkbox, isChecked) {
         let { 
@@ -49,9 +65,10 @@ class TreeView extends Component {
         
         const children = items ? items.map(this.createTreeList) : null;
         const isChecked = checkedItems.indexOf(item) !== -1;
+        const isOpen = this.state.collapsedItems.indexOf(item) === -1;
         
         return (
-            <TreeViewListItem key={id} label={label} image={image} checked={isChecked} onCheck={this.onCheck.bind(this, item)}>
+            <TreeViewListItem key={id} isOpen={isOpen} label={label} image={image} checked={isChecked} onCheck={this.onCheck.bind(this, item)} onChevronClick={this.onChevronClick.bind(this, item)}>
                 {children &&
                     <TreeViewList style={listStyle}>
                         {children}

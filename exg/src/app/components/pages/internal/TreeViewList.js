@@ -17,4 +17,4 @@ const TreeViewList = (props) => {
     );
 }
 
-export default TreeViewList
+export default TreeViewList;
