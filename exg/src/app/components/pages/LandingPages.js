@@ -1,40 +1,50 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton'
 import Dialog from 'material-ui/Dialog';
+import Divider from 'material-ui/Divider';
+import Slider from 'material-ui/Slider';
 import Panel from './internal/Panel';
+import PanelRow from './internal/PanelRow';
+import PanelCell from './internal/PanelCell';
 import TreeView from './internal/TreeView';
 
 const data = {
     id: 1,
     image: '/images/icons/home.png',
     label: 'Test 1',
+    sliderValue: 0.2,
     items: [
         {
             id: 2,
             image: '/images/icons/folder.png',
             label: 'Test 2',
+            sliderValue: 0.1,
             items: [
                 {
                     id: 3,
                     image: '/images/icons/cubes_blue.png',
-                    label: 'Test 3'
+                    label: 'Test 3',
+                    sliderValue: 0.7,
                 },
                 {
                     id: 4,
                     image: '/images/icons/window_colors.png',
-                    label: 'Test 4'
+                    label: 'Test 4',
+                    sliderValue: 0.4,
                 }
             ]
         },
         {
             id: 5,
             image: '/images/icons/preferences.png',
-            label: 'Test 5'
+            label: 'Test 5',
+            sliderValue: 0.9,
         },
         {
             id: 6,
             image: '/images/icons/workstation1.png',
-            label: 'Test 6'
+            label: 'Test 6',
+            sliderValue: 0.5,
         }
     ]
 };
@@ -44,13 +54,24 @@ class Page extends Component {
         super(props);
         
         this.state = {
-            openDialog: true
+            openDialog: false,
+            checkedItems: [],
+            landingPages: []
         };
         
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
         this.selectItems = this.selectItems.bind(this);
-        //this.onSelect = this.onSelect.bind(this);
+        this.onChangeCheckedItems = this.onChangeCheckedItems.bind(this);
+    }
+    deleteLandingPage(item) {
+        const items = [...this.state.checkedItems];
+        items.splice(items.indexOf(item), 1);
+        
+        this.setState({
+            checkedItems: items,
+            landingPages: items
+        });
     }
     openDialog() {
         this.setState({ openDialog: true });
@@ -58,11 +79,12 @@ class Page extends Component {
     closeDialog() {
         this.setState({ openDialog: false });
     }
-    selectItems(event) {
-        
+    selectItems() {
+        this.setState({ landingPages: [...this.state.checkedItems]});
+        this.closeDialog();
     }
-    onSelect(event) {
-        console.log(this);
+    onChangeCheckedItems(checkedItems) {
+        this.setState({ checkedItems });
     }
     render() {
         const title = "Add landing page";
@@ -71,7 +93,8 @@ class Page extends Component {
           buttons: {
               showDialog: { margin: 15 },
               ok: { marginRight: 15 }
-          }  
+          },
+          divider: { marginTop: 0, marginBottom: 0 }  
         };
         
         const actions = [
@@ -79,15 +102,35 @@ class Page extends Component {
             <RaisedButton onClick={this.closeDialog} label="Cancel"></RaisedButton>            
         ];
         
+        const landingPages = this.state.landingPages.map((item, index) => {
+            return (
+                <div key={item.id}>
+                    {index !== 0 &&
+                        <Divider style={styles.divider} />
+                    }
+                    <PanelRow>
+                        <PanelCell colClass="s7" style={{ marginTop: 10 }}>{item.label}</PanelCell>
+                        <PanelCell colClass="s3" style={{ marginTop: 10 }}><Slider value={item.sliderValue} /></PanelCell>
+                        <PanelCell colClass="s2" style={{ textAlign: 'right' }}><RaisedButton label="Delete" onClick={this.deleteLandingPage.bind(this, item)} /></PanelCell>
+                    </PanelRow>                    
+                </div>
+            );
+        });
+        
         return (
             <div>
                 <Panel header={title}>
                     <RaisedButton style={styles.buttons.showDialog} label={title} onClick={this.openDialog} />
                     <Dialog actions={actions} modal={true} title={title} open={this.state.openDialog}>
-                        <TreeView data={data} onSelect={this.onSelect}></TreeView>
+                        <TreeView data={data} onChangeCheckedItems={this.onChangeCheckedItems} checkedItems={this.state.checkedItems}></TreeView>
                     </Dialog>
                 </Panel>
-                <Panel header="Landing pages"></Panel>
+                <Panel header="Landing pages">
+                    {!landingPages.length &&
+                        <div style={{ padding: 15 }}>You need to select atleast one landing page.</div>
+                    }
+                    {landingPages}
+                </Panel>
             </div>
         );
     }
