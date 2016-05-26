@@ -114,6 +114,8 @@ class AppNavDrawer extends Component {
 
     return (
       <Drawer
+        hideFooter= {true}
+        hideHeader= {true}
         style={style}
         docked={docked}
         open={open}

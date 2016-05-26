@@ -25,7 +25,9 @@ export default class DrawerUndockedExample extends React.Component {
           docked={false}
           width={200}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
+          headerTitle="This is a title"
+          onRequestChange={(open) => this.setState({open})
+        }
         >
           <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
           <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>

@@ -19,13 +19,15 @@ function getStyles(props, context) {
       width: baseTheme.spacing.iconSize * 2,
       height: baseTheme.spacing.iconSize * 2,
       fontSize: 0,
+      
     },
     tooltip: {
       boxSizing: 'border-box',
     },
     icon: {
-      color: baseTheme.palette.textColor,
-      fill: baseTheme.palette.textColor,
+      hoverColor: baseTheme.palette.iconButtonHoverColor,
+      color: baseTheme.palette.iconButtonColor,
+      fill: baseTheme.palette.iconButtonColor,      
     },
     overlay: {
       position: 'relative',
@@ -128,6 +130,13 @@ class IconButton extends Component {
      * readability on mobile devices.
      */
     touch: PropTypes.bool,
+     
+     /**
+     * Callback function fired when the mouse clicks the element.
+     *
+     * @param {object} event `click` event targeting the element.
+     */
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -185,6 +194,10 @@ class IconButton extends Component {
     if (this.props.onMouseEnter) this.props.onMouseEnter(event);
   };
 
+  handleClick= (event) => {   
+    if (this.props.onClick) this.props.onClick(event);
+  };
+  
   handleKeyboardFocus = (event, keyboardFocused) => {
     if (keyboardFocused && !this.props.disabled) {
       this.showTooltip();
@@ -233,7 +246,8 @@ class IconButton extends Component {
       fonticon = (
         <FontIcon
           className={iconClassName}
-          hoverColor={disabled ? null : iconHoverColor}
+          hoverColor={disabled ? null : styles.icon.hoverColor}
+          color={disabled ? null : styles.icon.color}
           style={Object.assign(
             styles.icon,
             disabled && styles.disabled,
@@ -261,6 +275,7 @@ class IconButton extends Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseOut={this.handleMouseOut}
         onKeyboardFocus={this.handleKeyboardFocus}
+        onClick={this.handleClick}
       >
         {tooltipElement}
         {fonticon}

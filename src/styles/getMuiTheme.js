@@ -132,7 +132,7 @@ export default function getMuiTheme(muiTheme, ...more) {
     },
     navDrawer: {
       width: spacing.desktopKeylineIncrement * 4,
-      color: palette.canvasColor,
+      color:  palette.lightBackground,
     },
     listItem: {
       nestedLevelDepth: 18,
