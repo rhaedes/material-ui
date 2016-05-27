@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CampaignTraffic from '../../sitecore/layouts/Campaigns/CampaignTraffic';
-import Campaigns from '../../sitecore/layouts/Campaigns/Campaigns';
+import CampaignTraffic from './internal/CampaignTraffic';
+import Campaigns from './internal/Campaigns';
 
 class Page extends Component {
     render() {

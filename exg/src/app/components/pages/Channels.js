@@ -91,11 +91,11 @@ class Page extends Component {
             const categoryStyle = { fontWeight: 'bold', visibility: showCategory ? '' : 'hidden' };
 
             return (
-              <div>
+              <div key={index}>
                 {index !== 0 &&
                   <Divider style={dividerStyles} />
                 }
-                <PanelRow key={index}>
+                <PanelRow>
                   <PanelCell colClass="s2" style={categoryStyle}>{row.category}</PanelCell>
                   <PanelCell colClass="s8">{row.label}</PanelCell>
                   <PanelCell colClass="s2"><Slider defaultValue={row.value} onChange={this.onSliderChange.bind(this) }></Slider></PanelCell>
