@@ -393,14 +393,15 @@ class Drawer extends Component {
     }
 
     const footerStyle = {    
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
       position:'absolute',  
       bottom: 0,
-      height: '60px',
-      lineHeight: '60px',
+      height: '60px',      
       padding: '0 15px',
       right: 0,
-      left: 0,
-      textAlign: 'right',
+      left: 0,      
       border: '1px solid #cccccc',
       borderLeft: 0,
       borderRight: 0,
