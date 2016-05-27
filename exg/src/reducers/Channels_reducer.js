@@ -77,10 +77,10 @@ const channelCategorySlider = (state = channelsInitState, action) => {
 
 const dragging = (state = false, action) => {
   switch (action.type) {
-    case types.DRAG_START:
+    case types.CHANNEL_DRAG_START:
       return true;
 
-    case types.DRAG_STOP:
+    case types.CHANNEL_DRAG_STOP:
       return false;
   }
   

@@ -21,7 +21,7 @@ export function dragStart() {
   console.log("START");
   
   return {
-    type: types.DRAG_START
+    type: types.CHANNEL_DRAG_START
   };
 }
 
@@ -29,6 +29,6 @@ export function dragStop() {
   console.log("STOP");
   
   return {
-    type: types.DRAG_STOP
+    type: types.CHANNEL_DRAG_STOP
   };
 }
