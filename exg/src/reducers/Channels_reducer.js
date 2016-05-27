@@ -16,7 +16,7 @@ const channelsInitState = [
     { category: "Digital Events", label: "Other digital events", value: 0 },
     { category: "Digital Events", label: "Webinar live", value: 0 },
     { category: "Digital Events", label: "Webinar recorded", value: 0 },
-    { category: "Direct", label: "Facebook display", value: 0.5 },
+    { category: "Direct", label: "Facebook display", value: 0 },
     { category: "Display", label: "Google display", value: 0 },
     { category: "Display", label: "LinkedIn display", value: 0 },
     { category: "Display", label: "Other display", value: 0 },
@@ -63,35 +63,24 @@ const channelsInitState = [
     { category: "Social Sponsored Posts", label: "Twitter sponsored posts", value: 0 },
   ];
 
-const channel = (state, action) => {
+const channelCategorySlider = (state = channelsInitState, action) => {
   switch (action.type) {
-    case types.CHANNELS_UPDATE_SLIDER:
-      
-  }
-}
-
-const channels = (state = channelsInitState, action) => {
-  switch (action.type) {
-
-    case types.CHANNELS_UPDATE_SLIDER:
-      let channels = [...state];
-      let channel = channels.find((channel) => {
-        return channel.label === action.label;
-      });
-      channel.value = action.value;
+    case types.UPDATE_CATEGORY_SLIDER:
+    console.log(action.index, action.value)
+    let channels = [...state];
+    channels[action.index].value =  action.value;
       return channels;
   }
   
   return state;
 }
 
-
 const dragging = (state = false, action) => {
   switch (action.type) {
-    case types.CHANNEL_DRAG_START:
+    case types.DRAG_START:
       return true;
 
-    case types.CHANNEL_DRAG_STOP:
+    case types.DRAG_STOP:
       return false;
   }
   
@@ -107,4 +96,4 @@ const channelTraffic = (state = 0.5, action) => {
   return state;
 }
 
-export default combineReducers({channelTraffic, dragging});
+export default combineReducers({channelCategorySlider, channelTraffic, dragging});
