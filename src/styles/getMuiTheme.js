@@ -56,9 +56,11 @@ export default function getMuiTheme(muiTheme, ...more) {
       iconButtonSize: spacing.iconSize * 2,
     },
     card: {
-      titleColor: fade(palette.textColor, 0.87),
+      titleColor: palette.alternateTextColor,
       subtitleColor: fade(palette.textColor, 0.54),
       fontWeight: typography.fontWeightMedium,
+      headerColor: palette.darkBackground,
+      headerHighlightColor: palette.primary2Color
     },
     cardMedia: {
       color: darkWhite,
@@ -70,20 +72,22 @@ export default function getMuiTheme(muiTheme, ...more) {
       textColor: palette.textColor,
     },
     checkbox: {
-      boxColor: palette.textColor,
-      checkedColor: palette.primary1Color,
+      boxColor: palette.accent3Color,
+      checkedColor: palette.accent3Color,
       requiredColor: palette.primary1Color,
       disabledColor: palette.disabledColor,
       labelColor: palette.textColor,
       labelDisabledColor: palette.disabledColor,
     },
     datePicker: {
-      color: palette.primary1Color,
+      color: palette.textColor,
+      borderColor: palette.borderColor,
       textColor: palette.alternateTextColor,
       calendarTextColor: palette.textColor,
-      selectColor: palette.primary1Color,
-      selectTextColor: palette.alternateTextColor,
+      selectColor: palette.scThemeSkyXLight,
+      selectTextColor: palette.textColor,
       calendarYearBackgroundColor: white,
+      hoverBackgroundColor: palette.scThemeBasicXXLight
     },
     dialog: {
       titleFontSize: 18,
@@ -128,7 +132,7 @@ export default function getMuiTheme(muiTheme, ...more) {
     },
     navDrawer: {
       width: spacing.desktopKeylineIncrement * 4,
-      color: palette.canvasColor,
+      color:  palette.lightBackground,
     },
     listItem: {
       nestedLevelDepth: 18,
@@ -171,9 +175,9 @@ export default function getMuiTheme(muiTheme, ...more) {
       )),
     },
     radioButton: {
-      borderColor: palette.textColor,
+      borderColor: palette.accent3Color,
       backgroundColor: palette.alternateTextColor,
-      checkedColor: palette.primary1Color,
+      checkedColor: palette.accent3Color,
       requiredColor: palette.primary1Color,
       disabledColor: palette.disabledColor,
       size: 24,
@@ -301,7 +305,7 @@ export default function getMuiTheme(muiTheme, ...more) {
       color: fade(palette.textColor, 0.54),
       hoverColor: fade(palette.textColor, 0.87),
       backgroundColor: darken(palette.accent2Color, 0.05),
-      height: 56,
+      height: 48,
       titleFontSize: 20,
       iconColor: fade(palette.textColor, 0.4),
       separatorColor: fade(palette.textColor, 0.175),

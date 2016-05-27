@@ -5,8 +5,9 @@ import {
   white, darkBlack, fullBlack,
   scThemeBackground,
   scThemePrimaryDark,
-  scThemeMainDefault,
+  scThemeMainDefault,  
   scThemeBasicXLight,
+  scThemeBasicXXLight,
   scThemeBasicXXXLight,
   scThemeBasicXXDark,
   scThemeForeground,
@@ -14,6 +15,8 @@ import {
   scThemeBasicWhite,
   scBackDropColor,
   scThemeBasicDefault,
+  scThemeSkyXLight,
+  transparent
 } from '../colors';
 import {fade} from '../../utils/colorManipulator';
 import spacing from '../spacing';
@@ -45,6 +48,11 @@ export default {
     inverseColor: scThemeBasicDark,
     lightBackground: scThemeBasicWhite,
     darkBackground: scThemeBasicXXDark,
-    backDropColor: scBackDropColor,        
+    backDropColor: scBackDropColor,
+    scThemeSkyXLight: scThemeSkyXLight,
+    scThemeBasicXXLight: scThemeBasicXXLight,  
+    iconButtonColor:scThemeBasicXLight,
+    iconButtonHoverColor: scThemeBasicDark,
+    transparent:transparent
   },
 };
