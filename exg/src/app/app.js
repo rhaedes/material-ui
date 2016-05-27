@@ -5,6 +5,7 @@ import AppRoutes from './AppRoutes';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {createHashHistory} from 'history';
 import { combineReducers, applyMiddleware, createStore } from 'redux';
+import ReduxPromise from 'redux-promise';
 import { Provider } from 'react-redux';
 import reducers from '../reducers/reducers';
 
@@ -23,7 +24,7 @@ injectTapEventPlugin();
  * https://github.com/rackt/react-router/blob/master/docs/guides/overview.md
  */
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers) }>

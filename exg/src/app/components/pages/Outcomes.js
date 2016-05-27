@@ -4,62 +4,50 @@ import PanelRow from './internal/PanelRow';
 import PanelCell from './internal/PanelCell';
 import Divider from 'material-ui/Divider';
 import Slider from 'material-ui/Slider';
-
-const data = [
-    {
-        category: 'Identification',
-        label: 'Contact Acquisition',
-        value: 0.3
-    },
-    {
-        category: 'Lead Management Funnel',
-        label: 'Close - Cancelled',
-        value: 0.1
-    },
-    {
-        category: 'Lead Management Funnel',
-        label: 'Close - Lost',
-        value: 0
-    },
-    {
-        category: 'Lead Management Funnel',
-        label: 'Close - Won',
-        value: 0.8
-    },
-    {
-        category: 'Lead Management Funnel',
-        label: 'Marketing Lead',
-        value: 0.4
-    },
-    {
-        category: 'Lead Management Funnel',
-        label: 'Opportunity',
-        value: 0.2
-    },
-    {
-        category: 'Lead Management Funnel',
-        label: 'Sales Lead',
-        value: 0.6
-    },
-    {
-        category: 'Purchase',
-        label: 'Product Purchase',
-        value: 1
-    }
-]
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { update, getData } from '../../../actions/Outcomes_actions';
 
 class Page extends Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            id: 0,
+            tempValue: 0
+        };
+        
+        this.props.getData();
+    }
+    
+    onChange(id, event, value) {
+        this.setState({ id, tempValue: value });
+    }
+    
+    onDragStop(id) {
+        this.props.update(id, this.state.tempValue)
+    }
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        const propsItem = nextProps.outcomes.find((outcome) => {
+            return outcome.id === nextState.id;
+        });
+        
+        return propsItem ? propsItem.value === nextState.tempValue : true;
+    }
+  
     render() {
         let previousCategory = '';
         
         return (
             <Panel header="Outcomes">
-                {data.map((item, index) => {
+                {this.props.outcomes.map((outcome, index) => {
                     let {
                         category,
+                        id,
                         label,
                         value
-                    } = item;
+                    } = outcome;
                     
                     const isVisible = category !== previousCategory ? 'visible' : 'hidden';
                     const styles = {
@@ -78,7 +66,7 @@ class Page extends Component {
                                 <PanelCell colClass="s3" style={styles.category}>{category}</PanelCell>
                                 <PanelCell colClass="s6">{label}</PanelCell>
                                 <PanelCell colClass="s3">
-                                    <Slider value={value}></Slider>
+                                    <Slider value={value} onDragStop={this.onDragStop.bind(this, id)} onChange={this.onChange.bind(this, id)}></Slider>
                                 </PanelCell>
                             </PanelRow>
                         </div>
@@ -89,4 +77,12 @@ class Page extends Component {
     }
 }
 
-export default Page;
+const mapStateToProps = ({outcomes}) => {
+    return outcomes;
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ update, getData }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);
