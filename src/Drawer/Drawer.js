@@ -92,6 +92,8 @@ class Drawer extends Component {
     hideFooter: PropTypes.bool,
     
     hideHeader: PropTypes.bool,
+    
+    footerContent: PropTypes.node,
   };
 
   static defaultProps = {
@@ -449,7 +451,9 @@ class Drawer extends Component {
     ) : null;
 
    const footer = !this.props.hideFooter ? (
-      <div style={footerStyle}></div>                
+      <div style={footerStyle}>
+        {this.props.footerContent}
+      </div>                
    )
    : null;
    

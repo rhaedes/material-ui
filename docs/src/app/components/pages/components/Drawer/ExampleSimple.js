@@ -12,6 +12,10 @@ export default class DrawerSimpleExample extends React.Component {
 
   handleToggle = () => this.setState({open: !this.state.open});
 
+  const footer = (
+    <RaisedButton label="Primary" primary={true} />
+  );
+  
   render() {
     return (
       <div>
@@ -19,7 +23,7 @@ export default class DrawerSimpleExample extends React.Component {
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />
-        <Drawer open={this.state.open} headerTitle="This is a title">
+        <Drawer open={this.state.open} headerTitle="This is a title" footerContainer={footer}>
           <MenuItem>Menu Item</MenuItem>
           <MenuItem>Menu Item 2</MenuItem>
         </Drawer>
