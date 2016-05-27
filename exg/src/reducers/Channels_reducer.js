@@ -5,7 +5,7 @@ const channelsInitState = [
     { category: "3rd Party", label: "Email inclusion", value: 0 },
     { category: "3rd Party", label: "Other 3rd party", value: 0 },
     { category: "3rd Party", label: "Other 3rd party pay-per-lead", value: 0 },
-    { category: "3rd Party", label: "Virtual events", value: 0 },
+    { category: "3rd Party", label: "Virtual events", value: 0.2 },
     { category: "Apps", label: "App push", value: 0 },
     { category: "Apps", label: "App store activity", value: 0 },
     { category: "Apps", label: "App usage", value: 0 },
@@ -16,7 +16,7 @@ const channelsInitState = [
     { category: "Digital Events", label: "Other digital events", value: 0 },
     { category: "Digital Events", label: "Webinar live", value: 0 },
     { category: "Digital Events", label: "Webinar recorded", value: 0 },
-    { category: "Direct", label: "Facebook display", value: 0.5 },
+    { category: "Direct", label: "Facebook display", value: 0 },
     { category: "Display", label: "Google display", value: 0 },
     { category: "Display", label: "LinkedIn display", value: 0 },
     { category: "Display", label: "Other display", value: 0 },
@@ -63,28 +63,6 @@ const channelsInitState = [
     { category: "Social Sponsored Posts", label: "Twitter sponsored posts", value: 0 },
   ];
 
-// const channel = (state, action) => {
-//   switch (action.type) {
-//     case types.CHANNELS_UPDATE_SLIDER:    
-//   }
-// }
-
-// const channels = (state = channelsInitState, action) => {
-//   switch (action.type) {
-
-//     case types.CHANNELS_UPDATE_SLIDER:
-//       let channels = [...state];
-//       let channel = channels.find((channel) => {
-//         return channel.label === action.label;
-//       });
-//       channel.value = action.value;
-//       return channels;
-//   }
-  
-//   return state;
-// }
-
-
 const channelCategorySlider = (state = channelsInitState, action) => {
   switch (action.type) {
     case types.UPDATE_CATEGORY_SLIDER:
@@ -96,7 +74,6 @@ const channelCategorySlider = (state = channelsInitState, action) => {
   
   return state;
 }
-
 
 const dragging = (state = false, action) => {
   switch (action.type) {

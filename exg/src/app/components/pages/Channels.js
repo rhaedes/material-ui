@@ -103,7 +103,7 @@ class Page extends Component {
           <PanelRow>
             <PanelCell colClass="s6">Percentage of traffic with explicitly set channel</PanelCell>
             <PanelCell colClass="s6">
-              <Slider onChange={this.onSliderChange.bind(this) } defaultValue={this.props.channels.channelTraffic} onDragStart={this.onDragStart.bind(this)} onDragStop={this.onDragStop.bind(this)}></Slider>
+              <Slider onChange={this.onSliderChange.bind(this) } defaultValue={this.props.channels.channelTraffic} onFocus={this.onDragStart.bind(this)} onBlur={this.onDragStop.bind(this)}></Slider>
             </PanelCell>
           </PanelRow>
         </Panel>
@@ -121,7 +121,7 @@ class Page extends Component {
                 <PanelRow>
                   <PanelCell colClass="s2" style={categoryStyle}>{row.category}</PanelCell>
                   <PanelCell colClass="s8">{row.label}</PanelCell>
-                <PanelCell colClass="s2"><Slider onChange={this.onCategorySliderChange.bind(this, index) } onDragStart={this.onDragStart.bind(this)} onDragStop={this.onDragStop.bind(this)} defaultValue={this.props.channels.channelCategorySlider[index].value}></Slider></PanelCell>
+                <PanelCell colClass="s2"><Slider onChange={this.onCategorySliderChange.bind(this, index) } onFocus={this.onDragStart.bind(this)} onBlur={this.onDragStop.bind(this)} defaultValue={this.props.channels.channelCategorySlider[index].value}></Slider></PanelCell>
                 </PanelRow>
               </div>
 
