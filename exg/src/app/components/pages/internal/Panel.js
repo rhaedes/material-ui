@@ -2,7 +2,7 @@ import {Card, CardHeader} from 'material-ui/Card';
 
 const Panel = (props) => {
   const styles = Object.assign({}, {
-    marginTop: '15px'
+    marginTop: '15px',
   }, props.style);
   
   return (

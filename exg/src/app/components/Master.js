@@ -5,6 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {Tabs, Tab} from 'material-ui';
 import { ScGlobalHeader, ScMainContainer, ScGlobalLogo, ScAccountInformation, ScApplicationHeader } from '../sitecore/layouts';
 import { combineReducers } from 'redux';  
+import ProcessPanel from './pages/internal/ProcessPanel';
 import { Provider } from 'react-redux';
 
 class Master extends Component {
@@ -80,12 +81,15 @@ class Master extends Component {
             </ScGlobalHeader>
         <ScMainContainer noMenu={true}>
           <ScApplicationHeader title="Experience Generator"></ScApplicationHeader>
-          <div style={{padding:'30px 15px'}}>
-            <Tabs value={pathname}>
-              {tabs}
-            </Tabs>
-            <div>
-              {children}
+          <div style={{padding:'30px 15px'}} className="row">
+            <div className="col s9">
+              <Tabs value={pathname}>
+                {tabs}
+              </Tabs>
+              <div>{children}</div>
+            </div>
+            <div className="col s3" style={{paddingLeft: 30}}>
+              <ProcessPanel />
             </div>
           </div>
         </ScMainContainer>

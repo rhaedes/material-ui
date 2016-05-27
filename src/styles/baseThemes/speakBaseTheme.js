@@ -5,7 +5,7 @@ import {
   white, darkBlack, fullBlack,
   scThemeBackground,
   scThemePrimaryDark,
-  scThemeMainDefault,
+  scThemeMainDefault,  
   scThemeBasicXLight,
   scThemeBasicXXLight,
   scThemeBasicXXXLight,
@@ -49,6 +49,8 @@ export default {
     darkBackground: scThemeBasicXXDark,
     backDropColor: scBackDropColor,
     scThemeSkyXLight: scThemeSkyXLight,
-    scThemeBasicXXLight: scThemeBasicXXLight
+    scThemeBasicXXLight: scThemeBasicXXLight,  
+    iconButtonColor:scThemeBasicXLight,
+    iconButtonHoverColor: scThemeBasicDark,
   },
 };

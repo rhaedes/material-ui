@@ -37,8 +37,8 @@ export default class VisitsPerChannelCard extends Component {
                         id={this.props.id + 'Chart'}
                         type="pieChart"
                         datum={this.props.data}
-                        width="800"
-                        height="500"
+                        width={800}
+                        height={500}
                         x={this.props.x}
                         y={this.props.y}
                         tooltip={{ enabled: true }}

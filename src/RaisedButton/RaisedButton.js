@@ -77,6 +77,7 @@ function getStyles(props, context, state) {
   return {
     root: {
       display: 'inline-block',
+      minWidth: fullWidth ? '100%' : ''
     },
     button: {
       position: 'relative',

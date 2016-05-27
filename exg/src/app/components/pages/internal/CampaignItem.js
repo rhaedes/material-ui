@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'material-ui/Slider';
+import PanelRow from './PanelRow.js';
+import PanelCell from './PanelCell.js';
 
 class CampaignItem extends Component {
     constructor(props) {
@@ -23,16 +25,14 @@ class CampaignItem extends Component {
             value
         } = this.props;
         
-        const nameClasses = 'col ' + (showLargeSlider ? 's6' : 's9');
-        const sliderClasses = 'col ' + (showLargeSlider ? 's6' : 's3');
+        const nameColSize = (showLargeSlider ? 's6' : 's9');
+        const sliderColSize = (showLargeSlider ? 's6' : 's3');
         
         return (
-            <div className="row">
-                <div className={nameClasses}>{name}</div>
-                <div className={sliderClasses}>
-                    <Slider value={this.state.sliderValue} onChange={this.onChange} />
-                </div>
-            </div>
+            <PanelRow>
+                <PanelCell colClass={nameColSize}>{name}</PanelCell>
+                <PanelCell colClass={sliderColSize}><Slider value={this.state.sliderValue} onChange={this.onChange} /></PanelCell>
+            </PanelRow>
         );
     }    
 }

@@ -42,8 +42,8 @@ export default class MonthlyDistributionCard extends Component {
                         datum={this.props.data}
                         x={this.props.x}
                         y={this.props.y}
-                        width="800"
-                        height="500"
+                        width={800}
+                        height={500}
                         legend={{ enabled: true }}
                         tooltip={{ enabled: true }}
                         />
