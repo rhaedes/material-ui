@@ -1,5 +1,14 @@
 import * as types from '../constants/ActionTypes';
 
+export function updateCategorySlider(index, value) {
+  console.log("UPDATE CATEGORY SLIDER");
+  return {
+    type: types.UPDATE_CATEGORY_SLIDER,
+    index,
+    value,
+  };
+}
+
 export function updateSlider(value) {
   console.log("UPDATE");
   return {
