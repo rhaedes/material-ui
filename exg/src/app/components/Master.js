@@ -4,7 +4,8 @@ import spacing from 'material-ui/styles/spacing';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {Tabs, Tab} from 'material-ui';
 import { ScGlobalHeader, ScMainContainer, ScGlobalLogo, ScAccountInformation, ScApplicationHeader } from '../sitecore/layouts';
-
+import { combineReducers } from 'redux';  
+import { Provider } from 'react-redux';
 
 class Master extends Component {
   static contextTypes = {

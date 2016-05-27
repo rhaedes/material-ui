@@ -3,6 +3,9 @@ import Panel from './internal/Panel.js';
 import PanelRow from './internal/PanelRow.js';
 import PanelCell from './internal/PanelCell.js';
 import {Slider, Divider} from 'material-ui';
+import { connect } from 'react-redux';
+import { updateSlider, dragStart, dragStop } from '../../../actions/Actions';
+import { bindActionCreators } from 'redux';
 
 const data = [
   { category: "3rd Party", label: "Email inclusion", value: 0 },
@@ -67,8 +70,23 @@ const data = [
 ];
 
 class Page extends Component {
+  constructor(props) {
+    super(props);
+  }
+  onDragStart() {
+    this.props.dragStart();
+  }
+  
+  onDragStop() {
+    this.props.dragStop();
+  }
+  
   onSliderChange(evt, value) {
-    console.log(value);
+    this.props.updateSlider(value);
+  }
+  
+  shouldComponentUpdate() {
+    return !this.props.channels.dragging;
   }
   
   render() {
@@ -80,28 +98,37 @@ class Page extends Component {
           <PanelRow>
             <PanelCell colClass="s6">Percentage of traffic with explicitly set channel</PanelCell>
             <PanelCell colClass="s6">
-              <Slider defaultValue={0}></Slider>
+              <Slider onChange={this.onSliderChange.bind(this) } defaultValue={this.props.channels.channelTraffic} onDragStart={this.onDragStart.bind(this)} onDragStop={this.onDragStop.bind(this)}></Slider>
             </PanelCell>
           </PanelRow>
         </Panel>
-        <Panel header="Channels" style={{paddingBottom: '15px'}}>
+        <Panel header="Channels" style={{ paddingBottom: '15px' }}>
           {data.map((row, index, list) => {
-            var prev = list[index-1];
+            var prev = list[index - 1];
             var showCategory = row.category !== (prev && prev.category);
             const categoryStyle = { fontWeight: 'bold', visibility: showCategory ? '' : 'hidden' };
-            
+
             return (
               <PanelRow key={index} style={rowStyle}>
                 <PanelCell colClass="s2" style={categoryStyle}>{row.category}</PanelCell>
                 <PanelCell colClass="s8">{row.label}</PanelCell>
-                <PanelCell colClass="s2"><Slider defaultValue={row.value} onChange={this.onSliderChange.bind(this)}></Slider></PanelCell>
+                <PanelCell colClass="s2"><Slider defaultValue={row.value}></Slider></PanelCell>
               </PanelRow>
             );
-          })}
+          }) }
         </Panel>
       </div>
     );
   }
 }
 
-export default Page;
+const mapStateToProps = (state) => {
+  return {
+    channels: state.channels
+  }
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ updateSlider, dragStart, dragStop }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);
