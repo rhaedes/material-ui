@@ -5,7 +5,7 @@ const channelsInitState = [
     { category: "3rd Party", label: "Email inclusion", value: 0 },
     { category: "3rd Party", label: "Other 3rd party", value: 0 },
     { category: "3rd Party", label: "Other 3rd party pay-per-lead", value: 0 },
-    { category: "3rd Party", label: "Virtual events", value: 0.2 },
+    { category: "3rd Party", label: "Virtual events", value: 0 },
     { category: "Apps", label: "App push", value: 0 },
     { category: "Apps", label: "App store activity", value: 0 },
     { category: "Apps", label: "App usage", value: 0 },
@@ -77,10 +77,10 @@ const channelCategorySlider = (state = channelsInitState, action) => {
 
 const dragging = (state = false, action) => {
   switch (action.type) {
-    case types.CHANNEL_DRAG_START:
+    case types.DRAG_START:
       return true;
 
-    case types.CHANNEL_DRAG_STOP:
+    case types.DRAG_STOP:
       return false;
   }
   
