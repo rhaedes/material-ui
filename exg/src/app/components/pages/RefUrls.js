@@ -5,6 +5,7 @@ import Slider from 'material-ui/Slider';
 import { connect } from 'react-redux';
 import { addRefUrl, delRefUrl, updateRefUrl } from '../../../actions/RefUrlsAction';
 import { bindActionCreators } from 'redux';
+import debounce from 'lodash.debounce';
 
 
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
@@ -52,19 +53,13 @@ class AddRefUrlComponent extends Component {
 class RefUrlListComponentItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      sliderValue: 0.5
-    }
   }
-  onDeleteUrlHandler(value) {
-    const {onDeleteUrl} = this.props;
-
-    onDeleteUrl(value.url);
+  onDeleteUrlHandler() {
+    this.props.onDeleteUrl(this.props.urlRef.url);
   }
 
   handleSlider(e, value) {
-    console.log(value);
-    this.setState({ sliderValue: value });
+    this.props.onUpdateUrl(this.props.urlRef.url, value);
   }
   render() {
     const {urlRef} = this.props;
@@ -81,7 +76,7 @@ class RefUrlListComponentItem extends Component {
           />
       </div>
       <div style={{ textAlign: 'right' }} className="col s2">
-        <RaisedButton onClick={this.onDeleteUrlHandler.bind(this, urlRef) } label="Delete"></RaisedButton>
+        <RaisedButton onClick={this.onDeleteUrlHandler.bind(this) } label="Delete"></RaisedButton>
       </div>
     </div>);
   }
@@ -89,7 +84,7 @@ class RefUrlListComponentItem extends Component {
 
 class RefUrlListComponent extends Component {
   render() {
-    const { urls, onDeleteUrl } = this.props;
+    const { urls, onDeleteUrl, onUpdateUrl } = this.props;
     const cardContentStyle = {
       minHeight: '30px',
       padding: '15px'
@@ -99,7 +94,7 @@ class RefUrlListComponent extends Component {
       <CardHeader title="Ref URL" actAsExpander={false} showExpandableButton={false}/>
       <div style={cardContentStyle}>
         {urls.map((urlRef, index) => {
-          return (<RefUrlListComponentItem key={index} onDeleteUrl={onDeleteUrl} urlRef={urlRef}></RefUrlListComponentItem>)
+          return (<RefUrlListComponentItem key={index} onUpdateUrl={onUpdateUrl} onDeleteUrl={onDeleteUrl} urlRef={urlRef}></RefUrlListComponentItem>)
         }) }
       </div>
     </Card>);
@@ -113,6 +108,7 @@ class RefUrlsPage extends Component {
   }
 
   render() {
+    console.log("rendering")
     const spacingStyle = { marginTop: '15px' };
     return (
       <div>
@@ -120,7 +116,7 @@ class RefUrlsPage extends Component {
           <AddRefUrlComponent onAddRefUrl={this.props.addRefUrl}></AddRefUrlComponent>
         </div>
         <div style={spacingStyle}>
-          <RefUrlListComponent onUpdateUrl={this.props.updateRefUrl} onDeleteUrl={this.props.delRefUrl} urls={this.props.refUrls.urls}></RefUrlListComponent>
+          <RefUrlListComponent onUpdateUrl={debounce(this.props.updateRefUrl, 200)} onDeleteUrl={this.props.delRefUrl} urls={this.props.refUrls.refUrls}></RefUrlListComponent>
         </div>
       </div>
     );

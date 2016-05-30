@@ -20,6 +20,7 @@
     "android:setup-port": "adb reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
+    "lodash.debounce": "^4.0.6",
     "react-css-modules": "^3.7.6",
     "react-nvd3": "^0.5.7",
     "react-redux": "^4.4.5",
