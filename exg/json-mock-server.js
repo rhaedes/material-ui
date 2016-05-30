@@ -27,6 +27,93 @@ module.exports = ( PORT ) => {
       { id: 7, category: 'Purchase', label: 'Product Purchase', value: 1  }
     ] ) );
   });
+  
+  apiServer.get( '/api/dashboard/', function ( req, res ) {
+          
+      var visitsPerChannel = [
+      {
+        "label": "LandingPages",
+        "value": 25
+      },
+      {
+        "label": "RefURLs",
+        "value": 15
+      },
+      {
+        "label": "Search",
+        "value": 42
+      },
+      {
+        "label": "Campaigns",
+        "value": 32
+      },
+      {
+        "label": "Other",
+        "value": 48
+      }
+    ];
+    
+    var monthlyDistribution = [{
+      key: "Monthly Distribution",
+      values: [
+        {
+          "label": "January",
+          "value": 88
+        },
+        {
+          "label": "February",
+          "value": 75
+        },
+        {
+          "label": "March",
+          "value": 32
+        },
+        {
+          "label": "April",
+          "value": 44
+        },
+        {
+          "label": "Maj",
+          "value": 57
+        },
+        {
+          "label": "June",
+          "value": 61
+        },
+        {
+          "label": "July",
+          "value": 65
+        },
+        {
+          "label": "August",
+          "value": 72
+        },
+        {
+          "label": "September",
+          "value": 48
+        },
+        {
+          "label": "October",
+          "value": 36
+        },
+        {
+          "label": "November",
+          "value": 51
+        },
+        {
+          "label": "December",
+          "value": 88
+        }
+      ]
+    }
+    ];
+    
+    var output = {data: {}};    
+    output.data.visitsPerChannel = visitsPerChannel;
+    output.data.monthlyDistribution = monthlyDistribution;
+    res.send( JSON.stringify( output ) );
+  });
+
 
   apiServer.listen( PORT, 'localhost' );
 }
