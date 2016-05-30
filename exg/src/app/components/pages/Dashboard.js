@@ -3,111 +3,57 @@ import NVD3Chart from 'react-nvd3'
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import VisitsPerChannelCard from './charts/VisitsPerChannelCard';
 import MonthlyVisitsDistributionCard from './charts/MonthlyVisitsDistributionCard';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getChartsData } from '../../../actions/Dashboard_actions';
 
 class Page extends Component {
+  constructor(props) {
+        super(props);                        
+        props.getChartsData();
+  }
+     
+    
   render() {
-    
-    var visitsPerChannel = [
-      {
-        "label": "LandingPages",
-        "value": 25
-      },
-      {
-        "label": "RefURLs",
-        "value": 15
-      },
-      {
-        "label": "Search",
-        "value": 42
-      },
-      {
-        "label": "Campaigns",
-        "value": 32
-      },
-      {
-        "label": "Other",
-        "value": 48
-      }
-    ];
-    
-    var monthlyDistribution = [{
-      key: "Monthly Distribution",
-      values: [
-        {
-          "label": "January",
-          "value": 88
-        },
-        {
-          "label": "February",
-          "value": 75
-        },
-        {
-          "label": "March",
-          "value": 32
-        },
-        {
-          "label": "April",
-          "value": 44
-        },
-        {
-          "label": "Maj",
-          "value": 57
-        },
-        {
-          "label": "June",
-          "value": 61
-        },
-        {
-          "label": "July",
-          "value": 65
-        },
-        {
-          "label": "August",
-          "value": 72
-        },
-        {
-          "label": "September",
-          "value": 48
-        },
-        {
-          "label": "October",
-          "value": 36
-        },
-        {
-          "label": "November",
-          "value": 51
-        },
-        {
-          "label": "December",
-          "value": 88
-        }
-      ]
-    }
-    ];
-    
+                  
     const spacingStyle = { marginTop: '15px' };
-    return (
-      <div>      
-        <div style={spacingStyle}>
-          <VisitsPerChannelCard 
-            id='VisitsPerChannelCard'
-            data={visitsPerChannel}
-            x='label'
-            y='value'>
-          </VisitsPerChannelCard>
+
+    if (this.props.dashboard.data) {          
+      return (
+        <div>      
+          <div style={spacingStyle}>
+            <VisitsPerChannelCard 
+              id='VisitsPerChannelCard'
+              data={this.props.dashboard.data.visitsPerChannel}
+              x='label'
+              y='value'>
+            </VisitsPerChannelCard>
+          </div>
+          <div style={spacingStyle}>
+            <MonthlyVisitsDistributionCard 
+              id='MonthlyDistributionCard'
+              data={this.props.dashboard.data.monthlyDistribution}
+              x='label'
+              y='value'>
+            </MonthlyVisitsDistributionCard>
+          </div>
         </div>
-        <div style={spacingStyle}>
-          <MonthlyVisitsDistributionCard 
-            id='MonthlyDistributionCard'
-            data={monthlyDistribution}
-            x='label'
-            y='value'>
-          </MonthlyVisitsDistributionCard>
-        </div>
-      </div>
-    );
+      );
+    }
+    else{
+       return null;
+     } 
   }
 }
 
+const mapStateToProps = ( { dashboard } ) => {
+    return {
+      dashboard
+    }
+};
 
-export default Page;
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ getChartsData }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);
