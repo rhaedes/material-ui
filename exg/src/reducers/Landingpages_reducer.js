@@ -4,11 +4,11 @@ import { combineReducers } from 'redux';
 const landingPages = (state = {}, action) => {
     switch (action.type) {
         case LANDINGPAGES_GET:
-            return state;
+            return action.payload;
             
         case LANDINGPAGES_UPDATE:
             // TODO: Add update reducer logic.
-            
+
             return state;
     }
     
