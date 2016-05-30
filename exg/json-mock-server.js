@@ -27,6 +27,19 @@ module.exports = ( PORT ) => {
       { id: 7, category: 'Purchase', label: 'Product Purchase', value: 1  }
     ] ) );
   });
+  
+  apiServer.get( '/api/landingpages/', function ( req, res ) {
+    res.send( JSON.stringify( { id: 1, image: '/images/icons/home.png', label: 'Test 1', sliderValue: 0.2, items: [
+          { id: 2, image: '/images/icons/folder.png', label: 'Test 2', sliderValue: 0.1, items: [
+                  { id: 3, image: '/images/icons/cubes_blue.png', label: 'Test 3', sliderValue: 0.7 },
+                  { id: 4, image: '/images/icons/window_colors.png', label: 'Test 4', sliderValue: 0.4 }
+              ]
+          },
+          { id: 5, image: '/images/icons/preferences.png', label: 'Test 5', sliderValue: 0.9 },
+          { id: 6, image: '/images/icons/workstation1.png', label: 'Test 6', sliderValue: 0.5 }
+      ]
+    } ));
+  });
 
   apiServer.listen( PORT, 'localhost' );
 }
