@@ -1,15 +1,18 @@
 import { LANDINGPAGES_GET, LANDINGPAGES_UPDATE } from '../constants/ActionTypes';
 import { combineReducers } from 'redux';
 
-const landingPages = (state = {}, action) => {
+const defaultState = { 
+    treeview: {}, 
+    added: []
+};
+
+const landingPages = (state = defaultState, action) => {
     switch (action.type) {
         case LANDINGPAGES_GET:
-            return action.payload;
+            return Object.assign(state, { treeview: action.payload });
             
         case LANDINGPAGES_UPDATE:
-            // TODO: Add update reducer logic.
-
-            return state;
+            return Object.assign(state, { added: [...action.payload] });
     }
     
     return state;

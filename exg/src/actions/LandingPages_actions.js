@@ -9,9 +9,9 @@ export function getData() {
     };
 }
 
-export function update() {
+export function update(landingPages) {
     return {
       type: LANDINGPAGES_UPDATE,
-      payload: {}  
+      payload: landingPages  
     };
 }

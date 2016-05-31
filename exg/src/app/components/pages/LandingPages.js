@@ -17,8 +17,7 @@ class Page extends Component {
         
         this.state = {
             openDialog: false,
-            checkedItems: [],
-            landingPages: []
+            checkedItems: []
         };
         
         this.openDialog = this.openDialog.bind(this);
@@ -32,10 +31,8 @@ class Page extends Component {
         const items = [...this.state.checkedItems];
         items.splice(items.indexOf(item), 1);
         
-        this.setState({
-            checkedItems: items,
-            landingPages: items
-        });
+        this.setState({ checkedItems: items });
+        this.props.update(items);
     }
     openDialog() {
         this.setState({ openDialog: true });
@@ -44,7 +41,7 @@ class Page extends Component {
         this.setState({ openDialog: false });
     }
     selectItems() {
-        this.setState({ landingPages: [...this.state.checkedItems]});
+        this.props.update(this.state.checkedItems);
         this.closeDialog();
     }
     onChangeCheckedItems(checkedItems) {
@@ -69,7 +66,7 @@ class Page extends Component {
             <RaisedButton onClick={this.closeDialog} label="Cancel"></RaisedButton>            
         ];
         
-        const landingPages = this.state.landingPages.map((item, index) => {
+        const landingPages = this.props.landingPages.added.map((item, index) => {
             return (
                 <div key={item.id}>
                     {index !== 0 &&
@@ -89,7 +86,7 @@ class Page extends Component {
                 <Panel header={title}>
                     <RaisedButton style={styles.buttons.showDialog} label={title} onClick={this.openDialog} />
                     <Dialog actions={actions} modal={true} title={title} open={this.state.openDialog}>
-                        <TreeView data={this.props.landingPages} onChangeCheckedItems={this.onChangeCheckedItems} checkedItems={this.state.checkedItems}></TreeView>
+                        <TreeView data={this.props.landingPages.treeview} onChangeCheckedItems={this.onChangeCheckedItems} checkedItems={this.state.checkedItems}></TreeView>
                     </Dialog>
                 </Panel>
                 <Panel header="Landing pages">
