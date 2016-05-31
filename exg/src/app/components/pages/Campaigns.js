@@ -1,22 +1,43 @@
 import React, { Component } from 'react';
 import CampaignTraffic from './internal/CampaignTraffic';
 import Campaigns from './internal/Campaigns';
+import { getData, updateCampaigns, updateCampaignTraffic } from '../../../actions/Campaigns_actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-class Page extends Component {
+class CampaignsPage extends Component {
+    constructor(props) {
+        super(props);
+        
+        if(!props.campaigns.dataLoaded) {
+            props.getData();
+        }
+    }
     render() {
-        // TODO: Use state for campaigns
-        const campaigns = [
-            { name: "Social/Facebook/Facebook Content Messages", value: 0.3 },
-            { name: "Television/TV2/Demand more", value: 0.5 }
-        ];
+        const {
+            campaigns: {
+                items,
+                traffic
+            }
+        } = this.props;
         
         return (
             <div style={{marginTop: 15}}>
-                <CampaignTraffic style={{ marginBottom: 20 }} />
-                <Campaigns campaigns={campaigns} />
+                <CampaignTraffic data={traffic} style={{ marginBottom: 20 }} />
+                <Campaigns data={items} />
             </div>
         );
     }
 }
 
-export default Page;
+const mapStateToProps = ({ campaigns }) => {
+    return {
+        campaigns
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ getData, updateCampaigns, updateCampaignTraffic }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CampaignsPage);

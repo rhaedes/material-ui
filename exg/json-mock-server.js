@@ -77,21 +77,29 @@ module.exports = ( PORT ) => {
   });
   
   apiServer.get( '/api/campaigns/', function ( req, res ) {
-    res.send( JSON.stringify( [
-      { name: "123", value: 0.3 },
-      { name: "ABC", value: 0.3 },
-      { name: "Social/Campaign", value: 0.3 },
-      { name: "Social/Facebook/Campaign", value: 0.3 },
-      { name: "Social/Facebook/Facebook Content Messages", value: 0.3 },
-      { name: "Social/Facebook/Facebook Goal Messages", value: 0.3 },
-      { name: "Social/Facebook/Facebook Share Buttons", value: 0.3 },
-      { name: "Social/Google Plus/Google Plus Share Buttons", value: 0.3 },
-      { name: "Social/LinkedIn/LinkedIn Share Buttons", value: 0.3 },
-      { name: "Social/Social Marketer/Social Marketer", value: 0.3 },
-      { name: "Social/Twitter/Twitter Content Messages", value: 0.3 },
-      { name: "Social/Twitter/Twitter Goal Messages", value: 0.3 },
-      { name: "Social/Twitter/Twitter Share Buttons", value: 0.3 },
-    ] ));
+    var output = {
+      traffic: {
+        name: "Campaign traffic",
+        value: 0.5
+      },
+      items: [
+        { name: "123", value: 0.3 },
+        { name: "ABC", value: 0.3 },
+        { name: "Social/Campaign", value: 0.3 },
+        { name: "Social/Facebook/Campaign", value: 0.3 },
+        { name: "Social/Facebook/Facebook Content Messages", value: 0.3 },
+        { name: "Social/Facebook/Facebook Goal Messages", value: 0.3 },
+        { name: "Social/Facebook/Facebook Share Buttons", value: 0.3 },
+        { name: "Social/Google Plus/Google Plus Share Buttons", value: 0.3 },
+        { name: "Social/LinkedIn/LinkedIn Share Buttons", value: 0.3 },
+        { name: "Social/Social Marketer/Social Marketer", value: 0.3 },
+        { name: "Social/Twitter/Twitter Content Messages", value: 0.3 },
+        { name: "Social/Twitter/Twitter Goal Messages", value: 0.3 },
+        { name: "Social/Twitter/Twitter Share Buttons", value: 0.3 },
+      ]
+    }
+    
+    res.send( JSON.stringify( output ));
   });
 
   apiServer.listen( PORT, 'localhost' );

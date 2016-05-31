@@ -6,14 +6,14 @@ import CampaignItem from './CampaignItem';
 
 const Campaigns = (props) => {
     const {
-        campaigns
+        data
     } = props;
     
-    const campaignItems = campaigns.map((campaign, index) => {
+    const campaignItems = data.map((campaign, index) => {
         return(
             <div key={'campaign-container-' + index}>
                 <CampaignItem name={campaign.name} value={campaign.value} />
-                {index !== campaigns.length - 1 &&
+                {index !== data.length - 1 &&
                     <Divider style={{ marginTop: 0, marginBottom: 0 }} />
                 } 
             </div>

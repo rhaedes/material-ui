@@ -6,8 +6,8 @@ import CampaignItem from './CampaignItem';
 const CampaignTraffic = (props) => {
     return (
         <div style={props.style}>
-            <Panel header="Campaign traffic">
-                <CampaignItem name="Campaign traffic" value={0.5} showLargeSlider="true" />
+            <Panel header={props.data.name}>
+                <CampaignItem name={props.data.name} value={props.data.value} showLargeSlider="true" />
             </Panel>
         </div>  
     );
