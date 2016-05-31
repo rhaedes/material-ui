@@ -10,39 +10,32 @@ import { getChartsData } from '../../../actions/Dashboard_actions';
 class Page extends Component {
   constructor(props) {
         super(props);                        
-        props.getChartsData();
+        props.getChartsData();                       
   }
-     
     
-  render() {
-                  
+  render() {                  
     const spacingStyle = { marginTop: '15px' };
-
-    if (this.props.dashboard.data) {          
-      return (
-        <div>      
-          <div style={spacingStyle}>
-            <VisitsPerChannelCard 
-              id='VisitsPerChannelCard'
-              data={this.props.dashboard.data.visitsPerChannel}
-              x='label'
-              y='value'>
-            </VisitsPerChannelCard>
-          </div>
-          <div style={spacingStyle}>
-            <MonthlyVisitsDistributionCard 
-              id='MonthlyDistributionCard'
-              data={this.props.dashboard.data.monthlyDistribution}
-              x='label'
-              y='value'>
-            </MonthlyVisitsDistributionCard>
-          </div>
+    
+    return (
+      <div>      
+        <div style={spacingStyle}>
+          <VisitsPerChannelCard 
+            id='VisitsPerChannelCard'
+            data={this.props.dashboard.data.visitsPerChannel}
+            x='label'
+            y='value'>
+          </VisitsPerChannelCard>
         </div>
-      );
-    }
-    else{
-       return null;
-     } 
+        <div style={spacingStyle}>
+          <MonthlyVisitsDistributionCard 
+            id='MonthlyDistributionCard'
+            data={this.props.dashboard.data.monthlyDistribution}
+            x='label'
+            y='value'>
+          </MonthlyVisitsDistributionCard>
+        </div>
+      </div>
+    );     
   }
 }
 
