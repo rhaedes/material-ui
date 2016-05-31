@@ -4,6 +4,7 @@ import Campaigns from './internal/Campaigns';
 import { getData, updateCampaigns, updateCampaignTraffic } from '../../../actions/Campaigns_actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import debounce from 'lodash.debounce';
 
 class CampaignsPage extends Component {
     constructor(props) {
@@ -13,21 +14,20 @@ class CampaignsPage extends Component {
             props.getData();
         }
     }
-    onSliderChange () {
-        console.log(arguments);
-    }
     render() {
         const {
             campaigns: {
                 items,
                 traffic
-            }
+            },
+            updateCampaigns,
+            updateCampaignTraffic
         } = this.props;
         
         return (
             <div style={{marginTop: 15}}>
-                <CampaignTraffic data={traffic} style={{ marginBottom: 20 }} onChange={this.onSliderChange} />
-                <Campaigns data={items} />
+                <CampaignTraffic data={traffic} style={{ marginBottom: 20 }} onChange={debounce(updateCampaignTraffic, 100)} />
+                <Campaigns data={items} onChange={debounce(updateCampaigns, 100)} />
             </div>
         );
     }

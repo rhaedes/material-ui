@@ -9,18 +9,21 @@ export function getData() {
     }
 }
 
-export function updateCampaigns() {
-    console.log('updateCampaigns()');
-    
+export function updateCampaigns(index, event, value) {
     return {
-        type: CAMPAIGNS_UPDATE
+        type: CAMPAIGNS_UPDATE,
+        payload: {
+            index,
+            value
+        }
     }
 }
 
-export function updateCampaignTraffic() {
-    console.log('updateCampaignTraffic()');
-    
+export function updateCampaignTraffic(event, value) {
     return {
-        type: CAMPAIGNS_TRAFFIC_UPDATE
+        type: CAMPAIGNS_TRAFFIC_UPDATE,
+        payload: {
+            value
+        }
     }
 }
