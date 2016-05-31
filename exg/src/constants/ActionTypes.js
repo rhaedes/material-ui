@@ -15,3 +15,6 @@ export const DASHBOARD_GET = 'DASHBOARD_GET';
 export const REF_URLS_ADD = 'REF_URLS_ADD';
 export const REF_URLS_DELETE = 'REF_URLS_DELETE';
 export const REF_URLS_UPDATE = 'REF_URLS_UPDATE';
+
+export const PROCESS_START = "PROCESS_START";
+export const PROCESS_UPDATE = "PROCESS_UPDATE";

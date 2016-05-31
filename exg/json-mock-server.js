@@ -75,6 +75,34 @@ module.exports = ( PORT ) => {
 
     res.send( JSON.stringify( output ) );
   });
+  
+  var id = 0;
+  
+  apiServer.post( '/api/xgen/jobs', function (req, res) {
+    // Ignore incoming data as this is a mock server 
+    // ---
+    res.send(JSON.stringify({
+      id: id++
+    }));
+  });
+  
+  const progressMap = {};
+  
+  apiServer.get( '/api/xgen/jobs/:id', function (req, res) {
+    var id = req.params.id;
+    
+    if (!progressMap[id])
+      progressMap[id] = {value: 0};
+    
+    progressMap[id].value += 0.1; // increase with 10% per request..
+    
+    // Fake progress
+    res.send(JSON.stringify({
+      "CompletedVisitors": 100,
+      "Progress": progressMap[id].value,
+      "CompletedVisits": 23
+    }));
+  });
 
 
   apiServer.listen( PORT, 'localhost' );
