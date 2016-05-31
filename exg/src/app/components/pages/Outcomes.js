@@ -17,7 +17,9 @@ class Page extends Component {
             tempValue: 0
         };
         
-        this.props.getData();
+        if(!this.props.outcomes.length) {
+            props.getData();
+        }
     }
     
     onChange(id, event, value) {

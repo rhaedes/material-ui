@@ -7,7 +7,7 @@ export function update(id, value) {
     };
 }
 
-export function getData(id, value) {
+export function getData() {
     const request = fetch('/api/outcomes').then(x => x.json());
 
     return {
