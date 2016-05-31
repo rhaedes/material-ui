@@ -13,6 +13,9 @@ class CampaignsPage extends Component {
             props.getData();
         }
     }
+    onSliderChange () {
+        console.log(arguments);
+    }
     render() {
         const {
             campaigns: {
@@ -23,7 +26,7 @@ class CampaignsPage extends Component {
         
         return (
             <div style={{marginTop: 15}}>
-                <CampaignTraffic data={traffic} style={{ marginBottom: 20 }} />
+                <CampaignTraffic data={traffic} style={{ marginBottom: 20 }} onChange={this.onSliderChange} />
                 <Campaigns data={items} />
             </div>
         );
