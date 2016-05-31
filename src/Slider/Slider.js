@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import keycode from 'keycode';
 import transitions from '../styles/transitions';
 import FocusRipple from '../internal/FocusRipple';
+import {scThemeBasicXLight, scThemeBasicXXLight} from '../styles/colors';
+import {darkenAbs} from '../utils/colorManipulator';
 
 /**
  * Verifies min/max range.
@@ -64,7 +66,6 @@ const getStyles = (props, context, state) => {
       position: 'absolute',
       top: 0,
       height: '100%',
-      transition: transitions.easeOut(null, 'margin'),
     },
     handle: {
       boxSizing: 'border-box',
@@ -77,9 +78,13 @@ const getStyles = (props, context, state) => {
       margin: `${(slider.trackSize / 2)}px 0 0 0`,
       width: slider.handleSize,
       height: slider.handleSize,
-      backgroundColor: slider.selectionColor,
+      
+       background: 'linear-gradient(' +  scThemeBasicXXLight + ' 10%, ' + scThemeBasicXLight + ' 100%)',
+      
+      
+     // backgroundColor: slider.trackColor,
       backgroundClip: 'padding-box',
-      border: '0px solid transparent',
+      border: '1px solid '+ slider.trackColor,
       borderRadius: '50%',
       transform: 'translate(-50%, -50%)',
       transition:
@@ -91,59 +96,24 @@ const getStyles = (props, context, state) => {
       outline: 'none',
     },
     handleWhenDisabled: {
-      boxSizing: 'content-box',
-      cursor: 'not-allowed',
       backgroundColor: slider.trackColor,
       width: slider.handleSizeDisabled,
       height: slider.handleSizeDisabled,
       border: 'none',
     },
-    handleWhenPercentZero: {
-      border: `${slider.trackSize}px solid ${slider.handleColorZero}`,
-      backgroundColor: slider.handleFillColor,
-      boxShadow: 'none',
-    },
-    handleWhenPercentZeroAndDisabled: {
-      cursor: 'not-allowed',
-      width: slider.handleSizeDisabled,
-      height: slider.handleSizeDisabled,
-    },
-    handleWhenPercentZeroAndFocused: {
-      border: `${slider.trackSize}px solid ${slider.trackColorSelected}`,
-    },
-    handleWhenActive: {
-      width: slider.handleSizeActive,
-      height: slider.handleSizeActive,
-    },
-    ripple: {
-      height: slider.handleSize,
-      width: slider.handleSize,
-      overflow: 'visible',
-    },
-    rippleWhenPercentZero: {
-      top: -slider.trackSize,
-      left: -slider.trackSize,
-    },
-    rippleInner: {
-      height: '300%',
-      width: '300%',
-      top: -slider.handleSize,
-      left: -slider.handleSize,
-    },
-    rippleColor: {
-      fill: state.percent === 0 ? slider.handleColorZero : slider.rippleColor,
-    },
+
   };
   styles.filled = Object.assign({}, styles.filledAndRemaining, {
     left: 0,
-    backgroundColor: (props.disabled) ? slider.trackColor : slider.selectionColor,
+    borderRadius: '4px',
+    background: 'linear-gradient(' +  slider.selectionColor + ' 10%, ' + darkenAbs(slider.selectionColor, 0.07) + ' 100%)',
     marginRight: fillGutter,
     width: `calc(${(state.percent * 100)}%${calcDisabledSpacing})`,
   });
   styles.remaining = Object.assign({}, styles.filledAndRemaining, {
     right: 0,
-    backgroundColor: (state.hovered || state.focused) &&
-      !props.disabled ? slider.trackColorSelected : slider.trackColor,
+    borderRadius: '4px',
+    background: 'linear-gradient(' +  scThemeBasicXLight + ' 10%, ' + scThemeBasicXXLight + ' 100%)',
     marginLeft: fillGutter,
     width: `calc(${((1 - state.percent) * 100)}%${calcDisabledSpacing})`,
   });
@@ -228,7 +198,7 @@ class Slider extends Component {
 
   static defaultProps = {
     disabled: false,
-    disableFocusRipple: false,
+    disableFocusRipple: true,
     max: 1,
     min: 0,
     required: true,
@@ -567,13 +537,7 @@ class Slider extends Component {
       );
     }
 
-    const rippleStyle = Object.assign(
-      {},
-      styles.ripple,
-      percent === 0 && styles.rippleWhenPercentZero
-    );
-
-    const rippleShowCondition = (this.state.hovered || this.state.focused) && !this.state.active;
+    const rippleShowCondition = false; 
 
     let focusRipple;
     if (!disabled && !disableFocusRipple) {
