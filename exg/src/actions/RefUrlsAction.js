@@ -15,7 +15,6 @@ export const delRefUrl = (url) => {
 }
 
 export const updateRefUrl = (url, value) => {
-  console.log("fire!");
   return {
     type: REF_URLS_UPDATE,
     url: url,

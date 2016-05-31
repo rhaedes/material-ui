@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider from 'material-ui/Slider';
+import Divider from 'material-ui/Divider';
 import { connect } from 'react-redux';
 import { addRefUrl, delRefUrl, updateRefUrl } from '../../../actions/RefUrlsAction';
 import { bindActionCreators } from 'redux';
@@ -64,21 +65,20 @@ class RefUrlListComponentItem extends Component {
   render() {
     const {urlRef} = this.props;
 
-    return (<div style={{ lineHeight: '66px', borderBottom: '1px solid #000' }} className="row">
-      <div className="col s6">{urlRef.url}</div>
-      <div className="col s4">
-        <Slider
-          defaultValue={0.5}
-          style={{
-            marginBottom: '24px'
-          }}
-          value={urlRef.value} onChange={this.handleSlider.bind(this) }
-          />
+    return (
+      <div>
+        <div className="row">
+          <div className="col s6"><span style={{lineHeight: '36px'}}>{urlRef.url}</span></div>
+          <div className="col s4">
+            <Slider style={{marginTop: 6}} defaultValue={0.5} value={urlRef.value} onChange={this.handleSlider.bind(this) } />
+          </div>
+          <div style={{ textAlign: 'right' }} className="col s2">
+            <RaisedButton onClick={this.onDeleteUrlHandler.bind(this) } label="Delete"></RaisedButton>
+          </div>
+        </div>
+        <Divider />
       </div>
-      <div style={{ textAlign: 'right' }} className="col s2">
-        <RaisedButton onClick={this.onDeleteUrlHandler.bind(this) } label="Delete"></RaisedButton>
-      </div>
-    </div>);
+    );
   }
 }
 
@@ -108,7 +108,6 @@ class RefUrlsPage extends Component {
   }
 
   render() {
-    console.log("rendering")
     const spacingStyle = { marginTop: '15px' };
     return (
       <div>
@@ -116,7 +115,7 @@ class RefUrlsPage extends Component {
           <AddRefUrlComponent onAddRefUrl={this.props.addRefUrl}></AddRefUrlComponent>
         </div>
         <div style={spacingStyle}>
-          <RefUrlListComponent onUpdateUrl={debounce(this.props.updateRefUrl, 200)} onDeleteUrl={this.props.delRefUrl} urls={this.props.refUrls.refUrls}></RefUrlListComponent>
+          <RefUrlListComponent onUpdateUrl={debounce(this.props.updateRefUrl, 200) } onDeleteUrl={this.props.delRefUrl} urls={this.props.refUrls.refUrls}></RefUrlListComponent>
         </div>
       </div>
     );
