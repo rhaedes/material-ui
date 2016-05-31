@@ -1,9 +1,23 @@
-import { ADD_INTERNAL_SEARCH_TERM } from '../constants/ActionTypes';
+import { INTERNAL_SEARCH_TERM_ADD, INTERNAL_SEARCH_TERM_DELETE, INTERNAL_SEARCH_TERM_UPDATE } from '../constants/ActionTypes';
 
-export function update(id, value) {
-    return {
-        type: ADD_INTERNAL_SEARCH_TERM,
-        payload: { id, value }
-    };
+export const addInternalSearchTerm = (term) => {
+  return {
+    type: INTERNAL_SEARCH_TERM_ADD,
+    term: term
+  }
 }
 
+export const deleteInternalSearchTerm = (term) => {
+  return {
+    type: INTERNAL_SEARCH_TERM_DELETE,
+    term: term
+  }
+}
+
+export const updateInternalSearchTerm = (term, value) => {
+  return {
+    type: INTERNAL_SEARCH_TERM_UPDATE,
+    term: term,
+    value: value
+  }
+}
