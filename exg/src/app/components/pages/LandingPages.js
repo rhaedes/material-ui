@@ -9,7 +9,7 @@ import PanelCell from './internal/PanelCell';
 import TreeView from './internal/TreeView';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getData, update } from '../../../actions/LandingPages_actions';
+import { getData, update, updateSlider } from '../../../actions/LandingPages_actions';
 
 class Page extends Component {
     constructor(props) {
@@ -17,7 +17,9 @@ class Page extends Component {
         
         this.state = {
             openDialog: false,
-            checkedItems: []
+            checkedItems: this.props.landingPages.added,
+            id: 0,
+            tempValue: 0
         };
         
         this.openDialog = this.openDialog.bind(this);
@@ -25,7 +27,9 @@ class Page extends Component {
         this.selectItems = this.selectItems.bind(this);
         this.onChangeCheckedItems = this.onChangeCheckedItems.bind(this);
         
-        props.getData();
+        if(!this.props.landingPages.treeview.id) {
+            props.getData();
+        };
     }
     deleteLandingPage(item) {
         const items = [...this.state.checkedItems];
@@ -44,6 +48,21 @@ class Page extends Component {
         this.props.update(this.state.checkedItems);
         this.closeDialog();
     }
+    onChange(id, event, value) {
+        this.setState({ id, tempValue: value });
+    }
+    
+    onDragStop(id) {
+        this.props.updateSlider(id, this.state.tempValue)
+    }
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        const propsItem = nextProps.landingPages.added.find((landingPage) => {
+            return landingPage.id === nextState.id;
+        });
+        
+        return propsItem ? propsItem.value === nextState.tempValue : true;
+    }    
     onChangeCheckedItems(checkedItems) {
         this.setState({ checkedItems });
     }
@@ -74,7 +93,7 @@ class Page extends Component {
                     }
                     <PanelRow>
                         <PanelCell colClass="s7" style={styles.cell}>{item.label}</PanelCell>
-                        <PanelCell colClass="s3" style={styles.cell}><Slider value={item.sliderValue} /></PanelCell>
+                        <PanelCell colClass="s3" style={styles.cell}><Slider value={item.sliderValue} onDragStop={this.onDragStop.bind(this, item.id)} onChange={this.onChange.bind(this, item.id)} /></PanelCell>
                         <PanelCell colClass="s2" style={styles.buttonCell}><RaisedButton label="Delete" onClick={this.deleteLandingPage.bind(this, item)} /></PanelCell>
                     </PanelRow>                    
                 </div>
@@ -105,7 +124,7 @@ const mapStateToProps = ({ landingPages }) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getData, update }, dispatch);
+    return bindActionCreators({ getData, update, updateSlider }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page);
