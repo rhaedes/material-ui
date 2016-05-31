@@ -28,89 +28,51 @@ module.exports = ( PORT ) => {
     ] ) );
   });
   
-  apiServer.get( '/api/dashboard/', function ( req, res ) {
-          
-      var visitsPerChannel = [
-      {
-        "label": "LandingPages",
-        "value": 25
-      },
-      {
-        "label": "RefURLs",
-        "value": 15
-      },
-      {
-        "label": "Search",
-        "value": 42
-      },
-      {
-        "label": "Campaigns",
-        "value": 32
-      },
-      {
-        "label": "Other",
-        "value": 48
-      }
-    ];
-    
-    var monthlyDistribution = [{
-      key: "Monthly Distribution",
-      values: [
-        {
-          "label": "January",
-          "value": 88
-        },
-        {
-          "label": "February",
-          "value": 75
-        },
-        {
-          "label": "March",
-          "value": 32
-        },
-        {
-          "label": "April",
-          "value": 44
-        },
-        {
-          "label": "Maj",
-          "value": 57
-        },
-        {
-          "label": "June",
-          "value": 61
-        },
-        {
-          "label": "July",
-          "value": 65
-        },
-        {
-          "label": "August",
-          "value": 72
-        },
-        {
-          "label": "September",
-          "value": 48
-        },
-        {
-          "label": "October",
-          "value": 36
-        },
-        {
-          "label": "November",
-          "value": 51
-        },
-        {
-          "label": "December",
-          "value": 88
-        }
+  apiServer.get( '/api/landingpages/', function ( req, res ) {
+    res.send( JSON.stringify( { id: 1, image: '/images/icons/home.png', label: 'Test 1', sliderValue: 0.2, items: [
+          { id: 2, image: '/images/icons/folder.png', label: 'Test 2', sliderValue: 0.1, items: [
+                  { id: 3, image: '/images/icons/cubes_blue.png', label: 'Test 3', sliderValue: 0.7 },
+                  { id: 4, image: '/images/icons/window_colors.png', label: 'Test 4', sliderValue: 0.4 }
+              ]
+          },
+          { id: 5, image: '/images/icons/preferences.png', label: 'Test 5', sliderValue: 0.9 },
+          { id: 6, image: '/images/icons/workstation1.png', label: 'Test 6', sliderValue: 0.5 }
       ]
+    } ));
+  });
+
+  apiServer.get( '/api/dashboard/', function ( req, res ) {
+    var output = {
+      data: {
+        visitsPerChannel: [
+          { "label": "LandingPages", "value": 25 },
+          { "label": "RefURLs", "value": 15 },
+          { "label": "Search", "value": 42 },
+          { "label": "Campaigns", "value": 32 },
+          { "label": "Other", "value": 48 }
+        ],
+        monthlyDistribution: [
+          {
+            key: "Monthly Distribution",
+            values: [
+              { "label": "January", "value": 88 },
+              { "label": "February", "value": 75 },
+              { "label": "March", "value": 32 },
+              { "label": "April", "value": 44 },
+              { "label": "Maj", "value": 57 },
+              { "label": "June", "value": 61 },
+              { "label": "July", "value": 65 },
+              { "label": "August", "value": 72 },
+              { "label": "September", "value": 48 },
+              { "label": "October", "value": 36 },
+              { "label": "November", "value": 51 },
+              { "label": "December", "value": 88 }
+            ]
+          }
+        ]
+      }
     }
-    ];
-    
-    var output = {data: {}};    
-    output.data.visitsPerChannel = visitsPerChannel;
-    output.data.monthlyDistribution = monthlyDistribution;
+
     res.send( JSON.stringify( output ) );
   });
 
