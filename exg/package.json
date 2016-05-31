@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "nodemon": "^1.9.2",
+    "lodash.debounce": "^4.0.6",
     "react-css-modules": "^3.7.6",
     "react-nvd3": "^0.5.7",
     "react-redux": "^4.4.5",
