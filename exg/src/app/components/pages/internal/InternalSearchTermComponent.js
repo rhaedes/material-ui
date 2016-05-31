@@ -94,7 +94,11 @@ class InternalSearchTermListComponent extends Component {
                     <CardHeader title="Ref URL" actAsExpander={false} showExpandableButton={false}/>
                     <div style={cardContentStyle}>
                         {internalSearchTerms.map((internalSearchTerm, index)=>{
-                            return (<InternalSearchTermItemListComponent key={index} onDelete={onDelete} internalSearchTerm={internalSearchTerm}></InternalSearchTermItemListComponent>)
+                            return (<InternalSearchTermItemListComponent 
+                            key={index} 
+                            onDelete={onDelete} 
+                            internalSearchTerm={internalSearchTerm}
+                            ></InternalSearchTermItemListComponent>)
                         })}  
                     </div>          
                 </Card>);
