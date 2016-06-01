@@ -51,14 +51,12 @@ function createPackageFile() {
       keywords,
       repository,
       license,
-      bugs,
-      homepage,
       peerDependencies,
       dependencies,
     } = packageData;
 
     const minimalPackage = {
-      name: 'material-ui',
+      name: 'sitecore-ui',
       author,
       version,
       description,
@@ -66,8 +64,6 @@ function createPackageFile() {
       keywords,
       repository,
       license,
-      bugs,
-      homepage,
       peerDependencies,
       dependencies,
     };
