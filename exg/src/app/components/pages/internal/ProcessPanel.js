@@ -3,12 +3,18 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {start, update} from '../../../../actions/Process_actions';
 
+var currentTimeoutId;
+
 const ProcessPanel = (props) => {
-  if (props.process.progressId !== undefined) {
-    if (props.process.progress.toFixed(2) < 1)
-      props.update(props.process.progressId);
+  if (currentTimeoutId) {
+    clearTimeout(currentTimeoutId);
   }
-  
+    
+  if (props.process.jobStatus === "Running") {
+    currentTimeoutId = setTimeout(() => {
+      props.update(props.process.progressId);    
+    }, 1000);
+  }
   
   return (
     <div>
