@@ -7,7 +7,7 @@ export const addInternalSearchTerm = (term) => {
   }
 }
 
-export const deleteInternalSearchTerm = (term) => {
+export const delInternalSearchTerm = (term) => {
   return {
     type: INTERNAL_SEARCH_TERM_DELETE,
     term: term
