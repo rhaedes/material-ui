@@ -2,7 +2,7 @@
   "name": "sitecore-ui",
   "private": false,
   "author": "Sitecore SPEAK",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "PoC: Material Design UI with SPEAK look and feel",
   "main": "./src/index.js",
   "keywords": [
