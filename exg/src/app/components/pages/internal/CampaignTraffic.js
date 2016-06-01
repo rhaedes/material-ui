@@ -3,11 +3,11 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 import Panel from './Panel.js';
 import CampaignItem from './CampaignItem';
 
-const CampaignTraffic = (props) => {
+const CampaignTraffic = ({ data, onChange, style }) => {
     return (
-        <div style={props.style}>
-            <Panel header="Campaign traffic">
-                <CampaignItem name="Campaign traffic" value={0.5} showLargeSlider="true" />
+        <div style={style}>
+            <Panel header={data.name}>
+                <CampaignItem name={data.name} value={data.value} onChange={onChange} showLargeSlider="true" />
             </Panel>
         </div>  
     );

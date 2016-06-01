@@ -2,7 +2,11 @@
 var express = require('express');
 var fs = require('fs');
 
-module.exports = (PORT) => {
+function getRandomNumber(range = 200) {        
+  return (Math.random() * range ) + 1;
+}
+  
+module.exports = ( PORT ) => {
   const apiServer = express();
 
   apiServer.get('/api/hello', function (req, res) {
@@ -43,32 +47,34 @@ module.exports = (PORT) => {
     }));
   });
 
-  apiServer.get('/api/dashboard/', function (req, res) {
+
+        
+  apiServer.get( '/api/dashboard/', function ( req, res ) {
     var output = {
       data: {
         visitsPerChannel: [
-          { "label": "LandingPages", "value": 25 },
-          { "label": "RefURLs", "value": 15 },
-          { "label": "Search", "value": 42 },
-          { "label": "Campaigns", "value": 32 },
-          { "label": "Other", "value": 48 }
+          { "label": "LandingPages", "value": getRandomNumber() },
+          { "label": "RefURLs", "value": getRandomNumber() },
+          { "label": "Search", "value": getRandomNumber() },
+          { "label": "Campaigns", "value": getRandomNumber() },
+          { "label": "Other", "value": getRandomNumber() }
         ],
         monthlyDistribution: [
           {
             key: "Monthly Distribution",
             values: [
-              { "label": "January", "value": 88 },
-              { "label": "February", "value": 75 },
-              { "label": "March", "value": 32 },
-              { "label": "April", "value": 44 },
-              { "label": "Maj", "value": 57 },
-              { "label": "June", "value": 61 },
-              { "label": "July", "value": 65 },
-              { "label": "August", "value": 72 },
-              { "label": "September", "value": 48 },
-              { "label": "October", "value": 36 },
-              { "label": "November", "value": 51 },
-              { "label": "December", "value": 88 }
+              { "label": "January", "value": getRandomNumber() },
+              { "label": "February", "value": getRandomNumber() },
+              { "label": "March", "value":getRandomNumber() },
+              { "label": "April", "value": getRandomNumber() },
+              { "label": "Maj", "value": getRandomNumber() },
+              { "label": "June", "value": getRandomNumber() },
+              { "label": "July", "value": getRandomNumber() },
+              { "label": "August", "value": getRandomNumber() },
+              { "label": "September", "value": getRandomNumber() },
+              { "label": "October", "value": getRandomNumber() },
+              { "label": "November", "value": getRandomNumber() },
+              { "label": "December", "value":getRandomNumber() }
             ]
           }
         ]
@@ -76,6 +82,32 @@ module.exports = (PORT) => {
     }
 
     res.send(JSON.stringify(output));
+  });
+  
+  apiServer.get( '/api/campaigns/', function ( req, res ) {
+    var output = {
+      traffic: {
+        name: "Campaign traffic",
+        value: 0.5
+      },
+      items: [
+        { name: "123", value: 0.1 },
+        { name: "ABC", value: 0.1 },
+        { name: "Social/Campaign", value: 0.1 },
+        { name: "Social/Facebook/Campaign", value: 0.1 },
+        { name: "Social/Facebook/Facebook Content Messages", value: 0.1 },
+        { name: "Social/Facebook/Facebook Goal Messages", value: 0.1 },
+        { name: "Social/Facebook/Facebook Share Buttons", value: 0.1 },
+        { name: "Social/Google Plus/Google Plus Share Buttons", value: 0.1 },
+        { name: "Social/LinkedIn/LinkedIn Share Buttons", value: 0.1 },
+        { name: "Social/Social Marketer/Social Marketer", value: 0.1 },
+        { name: "Social/Twitter/Twitter Content Messages", value: 0.1 },
+        { name: "Social/Twitter/Twitter Goal Messages", value: 0.1 },
+        { name: "Social/Twitter/Twitter Share Buttons", value: 0.1 },
+      ]
+    }
+    
+    res.send( JSON.stringify( output ));
   });
 
   var id = 0;

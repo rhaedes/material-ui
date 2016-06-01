@@ -1,25 +1,18 @@
 {
-  "name": "material-ui-build",
+  "name": "sitecore-ui",
   "private": true,
-  "author": "Call-em-all Engineering Team",
-  "version": "0.15.0-beta.2",
-  "description": "Material Design UI components built with React",
+  "author": "Sitecore SPEAK",
+  "version": "0.0.0",
+  "description": "PoC: Material Design UI with SPEAK look and feel",
   "main": "./src/index.js",
   "keywords": [
-    "react",
-    "react-component",
-    "material design",
-    "material-ui"
+    "sitecore-ui"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/callemall/material-ui.git"
+    "url": "https://github.com/rhaedes/material-ui"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/callemall/material-ui/issues"
-  },
-  "homepage": "http://material-ui.com/",
   "scripts": {
     "build": "npm run build:icon-index && npm run build:babel && npm run build:copy-files",
     "build:icon-index": "babel-node ./scripts/icon-index-generator.js",

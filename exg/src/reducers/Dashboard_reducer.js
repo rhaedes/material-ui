@@ -1,7 +1,13 @@
 import { DASHBOARD_GET} from '../constants/ActionTypes'
 import { combineReducers } from 'redux';
 
-const data = (state = {}, action) => {
+const dashboardInitState = 
+    {
+        visitsPerChannel:[],
+        monthlyDistribution:[]
+    }
+
+const data = (state = dashboardInitState, action) => {
     switch (action.type) {
         case DASHBOARD_GET:
             return action.payload.data;                    
