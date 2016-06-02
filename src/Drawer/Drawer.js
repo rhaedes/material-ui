@@ -8,9 +8,9 @@ import Overlay from '../internal/Overlay';
 import Paper from '../Paper';
 import propTypes from '../utils/propTypes';
 
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
-import ContentClear from 'material-ui/svg-icons/content/clear';
+import FontIcon from '../FontIcon';
+import IconButton from '../IconButton';
+import ContentClear from '../svg-icons/content/clear';
 
 let openNavEventHandler = null;
 
