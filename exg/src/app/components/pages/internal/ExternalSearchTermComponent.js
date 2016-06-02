@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider from 'material-ui/Slider';
-
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import { addExternalSearchTerm, delExternalSearchTerm, updateExternalSearchTerm } from '../../../../actions/Search_actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import debounce from 'lodash.debounce';
 
 class AddExternalSearchTermComponent extends Component {
     constructor(props){
@@ -48,18 +51,13 @@ class AddExternalSearchTermComponent extends Component {
 class ExternalSearchTermItemListComponent extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            sliderValue: 0.5
-        }
     }
     onDeleteHandler(value) {
-        const {onDelete} = this.props;
-        
-        onDelete(value);
+        this.props.onDelete(this.props.externalSearchTerm.term);
     }
     
     handleSlider(e, value) {
-        this.setState({sliderValue: value});
+                this.props.onUpdateExternalSearchTerm(this.props.externalSearchTerm.term, value);
     }
     render() {
         const {externalSearchTerm} = this.props;
@@ -84,7 +82,7 @@ class ExternalSearchTermItemListComponent extends Component {
 
 class ExternalSearchTermListComponent extends Component {
     render() {
-        const { externalSearchTerms, onDelete } = this.props;
+        const { externalSearchTerms, onDelete, onUpdateExternalSearchTerm } = this.props;
         const cardContentStyle = {
           minHeight: '30px',
           padding: '15px'
@@ -94,19 +92,24 @@ class ExternalSearchTermListComponent extends Component {
                     <CardHeader title="Ref URL" actAsExpander={false} showExpandableButton={false}/>
                     <div style={cardContentStyle}>
                         {externalSearchTerms.map((externalSearchTerm, index)=>{
-                            return (<ExternalSearchTermItemListComponent key={index} onDelete={onDelete} externalSearchTerm={externalSearchTerm}></ExternalSearchTermItemListComponent>)
+                            return (<ExternalSearchTermItemListComponent 
+                            key={index} 
+                            onDelete={onDelete} 
+                            externalSearchTerm={externalSearchTerm}
+                            onUpdateExternalSearchTerm= {onUpdateExternalSearchTerm}
+                            ></ExternalSearchTermItemListComponent>)
                         })}  
                     </div>          
                 </Card>);
     }
 }
 
-export default class ExternalSearchTermComponent extends Component {
+class ExternalSearchTermComponent extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            externalSearchTerms: [] //move this in a redux store
+            externalSearchTerms: [] 
         };
     }
     
@@ -119,10 +122,12 @@ export default class ExternalSearchTermComponent extends Component {
         this.setState({
             externalSearchTerms: filteredExternalSearchTerms
         });
+        this.props.delExternalSearchTerm(value);
     }
     
     onAddHandler(value) {
         this.setState({externalSearchTerms: this.state.externalSearchTerms.concat([{ term: value, value: 0.5 }])}); //concat to re-render the Component.
+        this.props.addExternalSearchTerm(value);
     }
     
     render() {
@@ -133,8 +138,20 @@ export default class ExternalSearchTermComponent extends Component {
                 <AddExternalSearchTermComponent onAdd={this.onAddHandler.bind(this)}></AddExternalSearchTermComponent>
             </div>
             <div style={spacingStyle}>
-                <ExternalSearchTermListComponent onDelete={this.onDeleteHandler.bind(this)} externalSearchTerms={this.state.externalSearchTerms}></ExternalSearchTermListComponent>
+                 <ExternalSearchTermListComponent onUpdateExternalSearchTerm={debounce(this.props.updateExternalSearchTerm, 200) } onDelete={this.onDeleteHandler.bind(this) } externalSearchTerms={this.props.search.externalSearchTerms}></ExternalSearchTermListComponent>
             </div>
         </div>)
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        search: state.search
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ addExternalSearchTerm, delExternalSearchTerm, updateExternalSearchTerm }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExternalSearchTermComponent); 
+

@@ -52,12 +52,11 @@ class InternalSearchTermItemListComponent extends Component {
     constructor(props) {
         super(props);
     }
-
     onDeleteHandler(value) {
         this.props.onDelete(this.props.internalSearchTerm.term);
     }
 
-    handleSlider(e, value) {
+    handleInternalSlider(e, value) {
         this.props.onUpdateSearchTerm(this.props.internalSearchTerm.term, value);
     }
 
@@ -73,7 +72,7 @@ class InternalSearchTermItemListComponent extends Component {
                         style={{
                             marginBottom: '24px'
                         }}
-                        value={internalSearchTerm.value} onChange={this.handleSlider.bind(this) }
+                        value={internalSearchTerm.value} onChange={this.handleInternalSlider.bind(this) }
                         />
                 </div>
                 <div style={{ textAlign: 'right' }} className="col s2">
