@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider from 'material-ui/Slider';
-
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import { connect } from 'react-redux';
+import { updateSlider, dragStart, dragStop } from '../../../../actions/Search_actions';
+import { bindActionCreators } from 'redux';
 
-export default class ExternalSearchChannels extends Component {
+class ExternalSearchChannels extends Component {
     constructor(props) {
         super(props);
 
@@ -21,11 +23,21 @@ export default class ExternalSearchChannels extends Component {
             ppcBing: 0.5
         };
     }
+    
+      onDragStart() {
+    this.props.dragStart();
+  }
+
+  onDragStop() {
+    this.props.dragStop();
+  }
 
     onChangeTrafficFromSearchHandler(e, value) {
         this.setState({
             trafficFromSearch: value
         });
+        
+        
     }
     
     onChangeSearchHandler(categoryName, name, e, value) {
@@ -34,6 +46,9 @@ export default class ExternalSearchChannels extends Component {
         newValue[categoryName + name] = value;
         
         this.setState(newValue);
+        
+        // this.props.updateSlider(newValue);
+        
     }
   
     render() {
@@ -91,7 +106,7 @@ export default class ExternalSearchChannels extends Component {
                                             Bing
                                         </div>
                                         <div className="col s6">
-                                            <Slider value={this.state.organicBing} onChange={this.onChangeSearchHandler.bind(this, "organic", "Bind")} />
+                                            <Slider value={this.state.organicBing} onChange={this.onChangeSearchHandler.bind(this, "organic", "Bing")} />
                                         </div>
                                     </div>
                                     <div style={valueRowStyle} className="row">
@@ -150,3 +165,14 @@ export default class ExternalSearchChannels extends Component {
         </div>);
     }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    search: state.search
+  }
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ updateSlider, dragStart, dragStop }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExternalSearchChannels);

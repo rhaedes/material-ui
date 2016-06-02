@@ -92,3 +92,4 @@ const externalSearchTerms = (state = [], action) => {
 }
 
 export default combineReducers({ internalSearchTerms, externalSearchTerms });
+

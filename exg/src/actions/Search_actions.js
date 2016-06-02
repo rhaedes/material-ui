@@ -5,6 +5,9 @@ import {
   EXTERNAL_SEARCH_TERM_ADD, 
   EXTERNAL_SEARCH_TERM_DELETE,
   EXTERNAL_SEARCH_TERM_UPDATE,
+  SEARCH_SLIDER_UPDATE,
+  SEARCH_SLIDER_DRAG_START,
+  SEARCH_SLIDER_DRAG_STOP
   } from '../constants/ActionTypes';
 
 export const addInternalSearchTerm = (term) => {
@@ -50,3 +53,23 @@ export const updateExternalSearchTerm = (term, value) => {
     value: value
   }
 }
+
+export const updateSlider = (value) => {
+return {
+    type: SEARCH_SLIDER_UPDATE,
+    value,
+  }
+}
+
+export const dragStart = () => {
+ return {
+    type: SEARCH_SLIDER_DRAG_START
+  }
+}
+
+export const dragStop = () => {
+  return {
+    type: SEARCH_SLIDER_DRAG_STOP
+  }
+}
+
