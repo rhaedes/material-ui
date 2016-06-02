@@ -23,7 +23,7 @@ export const delInternalSearchTerm = (term) => {
 
 export const updateInternalSearchTerm = (term, value) => {
   return {
-    type: EXTERNAL_SEARCH_TERM_UPDATE,
+    type: INTERNAL_SEARCH_TERM_UPDATE,
     term: term,
     value: value
   }
